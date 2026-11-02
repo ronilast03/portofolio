@@ -4,6 +4,7 @@ import PageHeader from '@/components/common/PageHeader'
 import PageTransition from '@/components/common/PageTransition'
 import CvButton from '@/components/common/CvButton'
 import Image from '@/components/common/Image'
+import Reveal from '@/components/common/Reveal'
 import { breadcrumbJsonLd } from '@/components/common/Breadcrumb'
 import Timeline from '@/components/sections/Timeline'
 import SkillGroups from '@/components/sections/SkillGroups'
@@ -17,10 +18,12 @@ function Row({ id, title, children }) {
     <>
       <hr className="border-line" />
       <section aria-labelledby={id} className="grid gap-10 py-14 lg:grid-cols-[220px_1fr] lg:gap-16 lg:py-20">
-        <h2 id={id} className="text-[22px] font-bold">
+        <Reveal as="h2" id={id} className="text-[22px] font-bold">
           {title}
-        </h2>
-        <div className="min-w-0">{children}</div>
+        </Reveal>
+        <Reveal delay={0.1} className="min-w-0">
+          {children}
+        </Reveal>
       </section>
     </>
   )

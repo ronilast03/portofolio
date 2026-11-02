@@ -1,10 +1,14 @@
+import { useCallback, useState } from 'react'
 import { Link } from 'react-router'
 import { profile } from '@/data/profile'
 import Icon from '@/components/common/Icon'
+import TicketDialog from './TicketDialog'
 
 /** Kartu ketersediaan bergaya tiket service desk (sentuhan ITSM). */
 export default function AvailabilityTicket() {
   const ticketId = `REQ-${new Date().getFullYear()}-0042`
+  const [open, setOpen] = useState(false)
+  const close = useCallback(() => setOpen(false), [])
 
   return (
     <aside aria-label="Ringkasan ketersediaan" className="min-w-0 overflow-hidden rounded-[14px] border border-line bg-surface">
@@ -33,10 +37,20 @@ export default function AvailabilityTicket() {
         <dd className="font-medium">{profile.responseTime}</dd>
       </dl>
       <div className="px-4.5 pt-3.5 pb-4.5">
-        <Link to="/contact" className="btn btn-ghost w-full">
-          Buat permintaan <Icon name="arrowRight" />
+        {/* Tanpa JavaScript, tombol ini tetap membuka halaman Contact. */}
+        <Link
+          to="/contact"
+          className="btn btn-ghost group w-full"
+          aria-haspopup="dialog"
+          onClick={(e) => {
+            e.preventDefault()
+            setOpen(true)
+          }}
+        >
+          Buat permintaan <Icon name="arrowRight" className="size-4 transition-transform group-hover:translate-x-0.5" />
         </Link>
       </div>
+      <TicketDialog open={open} onClose={close} />
     </aside>
   )
 }

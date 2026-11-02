@@ -237,3 +237,66 @@
 .hljs-tag {
   font-weight: 600;
 }
+
+/* ---------- Dialog tiket ---------- */
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+}
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+.ticket-dialog[open] {
+  animation: dialog-in 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ticket-dialog[open]::backdrop {
+  animation: backdrop-in 0.2s ease-out;
+}
+
+/* ---------- Animasi pembuka hero (CSS murni, langsung jalan tanpa menunggu JavaScript) ---------- */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.6em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes hero-word {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: none;
+  }
+}
+/* Elemen muncul dari bawah. Atur jeda dengan style={{ '--d': '200ms' }} */
+.hero-rise {
+  animation: hero-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+/* Kata di judul muncul satu per satu dari balik "masker" */
+.hero-word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.hero-word {
+  display: inline-block;
+  animation: hero-word 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise,
+  .hero-word {
+    animation: none;
+  }
+}

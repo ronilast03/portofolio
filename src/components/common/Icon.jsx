@@ -17,6 +17,8 @@ const paths = {
   ),
   moon: <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" />,
   menu: <path d="M4 7h16M4 12h16M4 17h16" />,
+  play: <path d="M7 4.5v15l12-7.5z" fill="currentColor" />,
+  pause: <path d="M8 5v14M16 5v14" />,
   close: <path d="M6 6l12 12M18 6 6 18" />,
   check: <path d="m5 12 5 5 9-10" />,
   alert: (

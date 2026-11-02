@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router'
 import Seo from '@/components/common/Seo'
 import Icon from '@/components/common/Icon'
 import Image from '@/components/common/Image'
+import Reveal from '@/components/common/Reveal'
 import PageHeader from '@/components/common/PageHeader'
 import PageTransition from '@/components/common/PageTransition'
 import { breadcrumbJsonLd } from '@/components/common/Breadcrumb'
@@ -75,11 +76,16 @@ export default function ProjectDetailPage() {
               <section>
                 <h2>Galeri</h2>
                 <div className="grid gap-3 md:grid-cols-2">
-                  {project.gallery.map((g) => (
-                    <figure key={g.src + g.caption}>
-                      <Image src={g.src} alt={g.caption} className="aspect-16/10 rounded-[10px] border border-line" />
+                  {project.gallery.map((g, i) => (
+                    <Reveal as="figure" key={g.src + g.caption} delay={(i % 2) * 0.1} className="group">
+                      <Image
+                        src={g.src}
+                        alt={g.caption}
+                        className="aspect-16/10 rounded-[10px] border border-line"
+                        imgClassName="group-hover:scale-103"
+                      />
                       <figcaption className="mt-1.5 text-[13px] text-muted">{g.caption}</figcaption>
-                    </figure>
+                    </Reveal>
                   ))}
                 </div>
               </section>

@@ -30,7 +30,10 @@ export default function PrivacyPolicyPage() {
 
           <h2>Penyimpanan dan keamanan</h2>
           <ul>
-            <li>Pesan disimpan di database server yang hanya dapat diakses pemilik website.</li>
+            <li>
+              Pesan diteruskan ke email pemilik website melalui layanan formulir pihak ketiga (Web3Forms), atau
+              disimpan di server milik website jika layanan backend sendiri digunakan.
+            </li>
             <li>Komunikasi menggunakan HTTPS.</li>
             <li>Formulir dilindungi pembatasan jumlah pengiriman untuk mencegah spam.</li>
           </ul>

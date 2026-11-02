@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import { formatDate } from '@/utils/date'
 import Image from '@/components/common/Image'
+import Reveal from '@/components/common/Reveal'
 
 /** Cover default jika artikel tidak punya gambar sampul. */
 export function ArticleCover({ post, large = false, priority = false }) {
@@ -11,6 +12,7 @@ export function ArticleCover({ post, large = false, priority = false }) {
         alt=""
         priority={priority}
         className={large ? 'aspect-[16/6] rounded-[14px] border border-line' : 'aspect-[16/7] border-b border-line'}
+        imgClassName={large ? undefined : 'group-hover:scale-104'}
       />
     )
   }
@@ -22,7 +24,7 @@ export function ArticleCover({ post, large = false, priority = false }) {
       }`}
     >
       <span
-        className={`pointer-events-none absolute -bottom-1 right-3.5 font-display leading-[0.9] font-extrabold tracking-[-0.04em] text-line select-none ${
+        className={`pointer-events-none absolute -bottom-1 right-3.5 font-display transition duration-500 ease-out group-hover:-translate-y-1.5 group-hover:text-muted/40 leading-[0.9] font-extrabold tracking-[-0.04em] text-line select-none ${
           large ? 'text-[clamp(56px,10vw,120px)]' : 'text-[clamp(40px,6vw,64px)]'
         }`}
       >
@@ -39,7 +41,7 @@ export default function ArticleCard({ post }) {
   return (
     <Link
       to={`/blog/${post.slug}`}
-      className="group flex flex-col overflow-hidden rounded-[10px] border border-line no-underline transition hover:border-fg"
+      className="group flex h-full flex-col overflow-hidden rounded-[10px] border border-line no-underline transition hover:-translate-y-0.5 hover:border-fg"
     >
       <ArticleCover post={post} />
       <div className="flex flex-1 flex-col gap-2 p-[18px]">
@@ -55,9 +57,9 @@ export default function ArticleCard({ post }) {
   )
 }
 
-export function ArticleRow({ post }) {
+export function ArticleRow({ post, index = 0 }) {
   return (
-    <li>
+    <Reveal as="li" delay={index * 0.08}>
       <Link
         to={`/blog/${post.slug}`}
         className="group grid gap-1.5 border-b border-line py-[22px] no-underline md:grid-cols-[150px_1fr_auto] md:items-baseline md:gap-6"
@@ -65,12 +67,12 @@ export function ArticleRow({ post }) {
         <time dateTime={post.date} className="font-mono text-[12.5px] text-muted">
           {formatDate(post.date)}
         </time>
-        <div>
+        <div className="transition-transform duration-300 group-hover:translate-x-1">
           <h3 className="text-[19px] font-bold transition-colors group-hover:text-accent">{post.title}</h3>
           <p className="mt-1 max-w-[62ch] text-[14.5px] text-muted">{post.description}</p>
         </div>
         <span className="font-mono text-xs whitespace-nowrap text-muted">{post.readingTime} mnt baca</span>
       </Link>
-    </li>
+    </Reveal>
   )
 }

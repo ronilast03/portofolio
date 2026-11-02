@@ -3,6 +3,7 @@ import Seo from '@/components/common/Seo'
 import PageHeader from '@/components/common/PageHeader'
 import PageTransition from '@/components/common/PageTransition'
 import EmptyState from '@/components/common/EmptyState'
+import Reveal from '@/components/common/Reveal'
 import { breadcrumbJsonLd } from '@/components/common/Breadcrumb'
 import ProjectCard from '@/components/sections/ProjectCard'
 import { projectCategories, projects } from '@/data/projects'
@@ -59,8 +60,10 @@ export default function ProjectsPage() {
 
         {list.length ? (
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {list.map((p) => (
-              <ProjectCard key={p.slug} project={p} />
+            {list.map((p, i) => (
+              <Reveal key={p.slug} delay={(i % 3) * 0.1} className="h-full">
+                <ProjectCard project={p} />
+              </Reveal>
             ))}
           </div>
         ) : (

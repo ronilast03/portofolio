@@ -1,10 +1,18 @@
 import { useId, useRef, useState } from 'react'
 import { Link } from 'react-router'
+import { m } from 'motion/react'
 import Icon from '@/components/common/Icon'
-import { sendContactMessage } from '@/services/contactService'
+import { profile } from '@/data/profile'
+import { createTicketId, sendContactMessage } from '@/services/contactService'
 import { CONTACT_LIMITS, validateContact } from '@/utils/validation'
 
-const EMPTY = { name: '', email: '', subject: '', message: '', website: '' }
+// Kategori tiket. Ubah sesuai kebutuhan.
+export const TICKET_CATEGORIES = ['Website', 'Aplikasi web', 'ITSM / Service desk', 'Lowongan kerja', 'Lainnya']
+
+const EMPTY = { category: '', name: '', email: '', subject: '', message: '', website: '' }
+
+const pad = (n) => String(n).padStart(2, '0')
+const clock = (d) => `${pad(d.getHours())}.${pad(d.getMinutes())}`
 
 function Field({ id, label, error, children, hint }) {
   return (
@@ -23,15 +31,96 @@ function Field({ id, label, error, children, hint }) {
   )
 }
 
-/** Contact form (FR-028 s/d FR-032). */
-export default function ContactForm() {
+/** Tampilan setelah tiket terkirim: nomor tiket + status penanganan. */
+function TicketReceipt({ ticket, onNew, onClose }) {
+  const steps = [
+    { label: 'Tiket dibuat', note: `Hari ini, ${clock(ticket.createdAt)}`, done: true },
+    { label: 'Ditinjau', note: `Target respons ${profile.responseTime}`, done: false },
+    { label: 'Dibalas', note: `Lewat email ke ${ticket.email}`, done: false },
+  ]
+
+  return (
+    <m.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className="grid gap-6"
+      role="status"
+    >
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p className="eyebrow">Nomor tiket</p>
+          <p className="mt-1 font-mono text-[clamp(22px,4vw,30px)] font-medium tracking-tight">{ticket.id}</p>
+        </div>
+        <span className="rounded-full border border-ok px-2.5 py-0.5 font-mono text-[11px] tracking-[0.06em] text-ok uppercase">
+          Open
+        </span>
+      </div>
+
+      <p className="text-[15px]">
+        Terima kasih, <strong>{ticket.name.split(/\s+/)[0]}</strong>. Tiket kamu sudah saya terima. Simpan nomor di atas
+        kalau ingin menanyakan perkembangannya.
+      </p>
+
+      <ol className="grid gap-0 border-l border-line">
+        {steps.map((s, i) => (
+          <m.li
+            key={s.label}
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.15 + i * 0.12, duration: 0.35 }}
+            className="relative pb-4 pl-6 last:pb-0"
+          >
+            <span
+              aria-hidden="true"
+              className={`absolute top-1 -left-[7px] grid size-[13px] place-items-center rounded-full border-2 ${
+                s.done ? 'border-ok bg-ok' : 'border-line bg-bg'
+              }`}
+            />
+            <p className={`text-sm font-semibold ${s.done ? '' : 'text-muted'}`}>
+              {s.label}
+              {s.done && <span className="sr-only"> (selesai)</span>}
+            </p>
+            <p className="text-[13px] text-muted">{s.note}</p>
+          </m.li>
+        ))}
+      </ol>
+
+      <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 rounded-[10px] border border-dashed border-line p-4 text-sm">
+        <dt className="font-mono text-xs text-muted">Kategori</dt>
+        <dd className="font-medium">{ticket.category}</dd>
+        <dt className="font-mono text-xs text-muted">Ringkasan</dt>
+        <dd className="font-medium break-words">{ticket.subject}</dd>
+      </dl>
+
+      <div className="flex flex-wrap gap-2.5">
+        {onClose && (
+          <button type="button" className="btn btn-primary" onClick={onClose}>
+            Selesai
+          </button>
+        )}
+        <button type="button" className="btn btn-ghost" onClick={onNew}>
+          Buat tiket lain
+        </button>
+      </div>
+    </m.div>
+  )
+}
+
+/**
+ * Form permintaan bergaya tiket service desk (FR-028 s/d FR-032).
+ * Dipakai di halaman Contact dan di dialog "Buat permintaan" pada hero.
+ */
+export default function ContactForm({ onClose, bordered = true }) {
   const uid = useId()
   const [values, setValues] = useState(EMPTY)
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState({ type: 'idle', message: '' })
+  const [ticket, setTicket] = useState(null)
   const formRef = useRef(null)
 
   const ids = {
+    category: `${uid}-category`,
     name: `${uid}-name`,
     email: `${uid}-email`,
     subject: `${uid}-subject`,
@@ -45,16 +134,26 @@ export default function ContactForm() {
     if (errors[name]) setErrors((err) => ({ ...err, [name]: undefined }))
   }
 
+  const validate = (v) => {
+    const errs = validateContact(v)
+    // Samakan istilah pesan error dengan label form ini.
+    if (errs.subject) errs.subject = errs.subject.replace('Subjek', 'Ringkasan')
+    if (errs.message) errs.message = errs.message.replace('Pesan', 'Detail permintaan')
+    if (!v.category) errs.category = 'Pilih salah satu kategori.'
+    return errs
+  }
+
   const focusFirstError = (errs) => {
-    const first = ['name', 'email', 'subject', 'message'].find((k) => errs[k])
-    if (first) document.getElementById(ids[first])?.focus()
+    const first = ['category', 'name', 'email', 'subject', 'message'].find((k) => errs[k])
+    if (first === 'category') formRef.current?.querySelector('input[name="category"]')?.focus()
+    else if (first) document.getElementById(ids[first])?.focus()
   }
 
   const onSubmit = async (e) => {
     e.preventDefault()
     if (status.type === 'loading') return
 
-    const clientErrors = validateContact(values)
+    const clientErrors = validate(values)
     setErrors(clientErrors)
     if (Object.keys(clientErrors).length) {
       setStatus({ type: 'idle', message: '' })
@@ -62,16 +161,14 @@ export default function ContactForm() {
       return
     }
 
+    const id = createTicketId()
     setStatus({ type: 'loading', message: '' })
     try {
-      const res = await sendContactMessage(values)
-      const firstName = values.name.trim().split(/\s+/)[0]
-      setStatus({
-        type: 'success',
-        message: `${res.message || 'Pesan berhasil dikirim.'} Terima kasih, ${firstName}. Saya akan membalas ke ${values.email.trim()}.`,
-      })
+      await sendContactMessage({ ...values, ticketId: id })
+      setTicket({ id, createdAt: new Date(), ...values })
       setValues(EMPTY)
       setErrors({})
+      setStatus({ type: 'idle', message: '' })
     } catch (error) {
       if (error.status === 422 && error.errors) {
         const serverErrors = Object.fromEntries(Object.entries(error.errors).map(([k, v]) => [k, v[0]]))
@@ -79,8 +176,6 @@ export default function ContactForm() {
         focusFirstError(serverErrors)
       }
       setStatus({ type: error.status === 429 ? 'warn' : 'error', message: error.message })
-    } finally {
-      formRef.current?.querySelector('[data-status]')?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
     }
   }
 
@@ -95,28 +190,60 @@ export default function ContactForm() {
   })
 
   const notice = {
-    success: { cls: 'border-ok text-ok bg-ok/10', icon: 'check', title: 'Pesan terkirim.' },
-    error: { cls: 'border-err text-err bg-err/10', icon: 'alert', title: 'Pesan gagal dikirim.' },
-    warn: { cls: 'border-warn text-warn bg-warn/10', icon: 'alert', title: 'Tunggu sebentar.' },
+    error: { cls: 'border-err bg-err/10', text: 'text-err', icon: 'alert', title: 'Tiket gagal dikirim.' },
+    warn: { cls: 'border-warn bg-warn/10', text: 'text-warn', icon: 'alert', title: 'Tunggu sebentar.' },
   }[status.type]
 
-  return (
-    <form
-      ref={formRef}
-      onSubmit={onSubmit}
-      noValidate
-      className="grid min-w-0 gap-[18px] rounded-[14px] border border-line p-6 md:p-8"
-    >
-      <div data-status aria-live="polite">
-        {notice && (
-          <div className={`flex items-start gap-2.5 rounded-[10px] border px-[15px] py-[13px] text-[14.5px] ${notice.cls}`}>
-            <Icon name={notice.icon} className="mt-0.5 size-4 shrink-0" />
-            <p className="text-fg">
-              <strong className={notice.cls.split(' ')[1]}>{notice.title}</strong> {status.message}
-            </p>
-          </div>
-        )}
+  const wrap = bordered ? 'rounded-[14px] border border-line p-6 md:p-8' : ''
+
+  if (ticket) {
+    return (
+      <div className={wrap}>
+        <TicketReceipt ticket={ticket} onNew={() => setTicket(null)} onClose={onClose} />
       </div>
+    )
+  }
+
+  return (
+    <form ref={formRef} onSubmit={onSubmit} noValidate className={`relative grid min-w-0 gap-[18px] ${wrap}`}>
+      <div className="flex items-center justify-between gap-3 border-b border-dashed border-line pb-4">
+        <span className="font-mono text-[13px] font-medium">Tiket baru</span>
+        <span className="rounded-full border border-warn px-2 py-0.5 font-mono text-[11px] tracking-[0.06em] text-warn uppercase">
+          Draft
+        </span>
+      </div>
+
+      {notice && (
+        <div aria-live="polite" className={`flex items-start gap-2.5 rounded-[10px] border px-[15px] py-[13px] text-[14.5px] ${notice.cls}`}>
+          <Icon name={notice.icon} className={`mt-0.5 size-4 shrink-0 ${notice.text}`} />
+          <p>
+            <strong className={notice.text}>{notice.title}</strong> {status.message}
+          </p>
+        </div>
+      )}
+
+      <fieldset className="min-w-0" aria-describedby={`${ids.category}-error`}>
+        <legend className="mb-2 text-sm font-semibold">Kategori</legend>
+        <div className="flex flex-wrap gap-2">
+          {TICKET_CATEGORIES.map((c) => {
+            const checked = values.category === c
+            return (
+              <label
+                key={c}
+                className={`cursor-pointer rounded-full border px-3.5 py-1.5 text-[13.5px] font-medium transition has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent ${
+                  checked ? 'border-fg bg-fg text-bg' : 'border-line text-muted hover:border-fg hover:text-fg'
+                }`}
+              >
+                <input type="radio" name="category" value={c} checked={checked} onChange={onChange} className="sr-only" />
+                {c}
+              </label>
+            )
+          })}
+        </div>
+        <p id={`${ids.category}-error`} className="mt-1.5 text-[13px] text-err">
+          {errors.category}
+        </p>
+      </fieldset>
 
       <div className="grid gap-[18px] md:grid-cols-2">
         <Field id={ids.name} label="Nama" error={errors.name}>
@@ -127,17 +254,18 @@ export default function ContactForm() {
         </Field>
       </div>
 
-      <Field id={ids.subject} label="Subjek" error={errors.subject}>
-        <input {...inputProps('subject')} maxLength={CONTACT_LIMITS.subject} />
+      <Field id={ids.subject} label="Ringkasan" error={errors.subject}>
+        <input {...inputProps('subject')} maxLength={CONTACT_LIMITS.subject} placeholder="Contoh: Pembuatan website company profile" />
       </Field>
 
-      <Field
-        id={ids.message}
-        label="Pesan"
-        error={errors.message}
-        hint={`${values.message.length} / ${CONTACT_LIMITS.messageMax}`}
-      >
-        <textarea {...inputProps('message')} rows={6} maxLength={CONTACT_LIMITS.messageMax} className={`${inputProps('message').className} min-h-[150px] resize-y`} />
+      <Field id={ids.message} label="Detail permintaan" error={errors.message} hint={`${values.message.length} / ${CONTACT_LIMITS.messageMax}`}>
+        <textarea
+          {...inputProps('message')}
+          rows={5}
+          maxLength={CONTACT_LIMITS.messageMax}
+          placeholder="Ceritakan kebutuhan, target waktu, atau pertanyaan kamu."
+          className={`${inputProps('message').className} min-h-[130px] resize-y`}
+        />
       </Field>
 
       {/* Honeypot (SEC-005): disembunyikan dari pengguna, biasanya diisi bot. */}
@@ -148,8 +276,8 @@ export default function ContactForm() {
 
       <div className="flex flex-wrap items-center justify-between gap-3.5 text-[13px] text-muted">
         <span>
-          Data hanya dipakai untuk membalas pesan.{' '}
-          <Link to="/privacy-policy" className="text-accent">
+          Data hanya dipakai untuk membalas tiket.{' '}
+          <Link to="/privacy-policy" className="text-accent" onClick={onClose}>
             Kebijakan privasi
           </Link>
         </span>
@@ -157,11 +285,11 @@ export default function ContactForm() {
           {status.type === 'loading' ? (
             <>
               <span className="size-[15px] animate-spin rounded-full border-2 border-current border-r-transparent" />
-              Mengirim…
+              Mengirim tiket…
             </>
           ) : (
             <>
-              Kirim pesan <Icon name="arrowRight" />
+              Kirim tiket <Icon name="arrowRight" />
             </>
           )}
         </button>

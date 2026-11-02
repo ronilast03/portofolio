@@ -4,6 +4,7 @@ import Icon from '@/components/common/Icon'
 import PageHeader from '@/components/common/PageHeader'
 import PageTransition from '@/components/common/PageTransition'
 import EmptyState from '@/components/common/EmptyState'
+import Reveal from '@/components/common/Reveal'
 import { breadcrumbJsonLd } from '@/components/common/Breadcrumb'
 import ArticleCard from '@/components/sections/ArticleCard'
 import { useHydrated } from '@/hooks/useHydrated'
@@ -114,8 +115,10 @@ export default function BlogPage() {
 
         {list.length ? (
           <div className="grid gap-5 md:grid-cols-2">
-            {list.map((post) => (
-              <ArticleCard key={post.slug} post={post} />
+            {list.map((post, i) => (
+              <Reveal key={post.slug} delay={(i % 2) * 0.1} className="h-full">
+                <ArticleCard post={post} />
+              </Reveal>
             ))}
           </div>
         ) : (

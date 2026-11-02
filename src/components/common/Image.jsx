@@ -22,7 +22,7 @@ export default function Image({ src, alt, className, imgClassName, priority = fa
         ref={(el) => {
           if (el?.complete) setLoaded(true)
         }}
-        className={cn('size-full object-cover transition-opacity duration-300', imgClassName)}
+        className={cn('size-full object-cover transition duration-500 ease-out', imgClassName)}
         {...props}
       />
     </div>

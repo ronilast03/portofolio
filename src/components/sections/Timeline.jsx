@@ -1,8 +1,10 @@
+import Reveal from '@/components/common/Reveal'
+
 export default function Timeline({ items }) {
   return (
     <ol className="border-l border-line">
-      {items.map((item) => (
-        <li key={`${item.period}-${item.title}`} className="relative pb-7 pl-6 last:pb-0">
+      {items.map((item, i) => (
+        <Reveal as="li" key={`${item.period}-${item.title}`} delay={i * 0.1} className="relative pb-7 pl-6 last:pb-0">
           <span
             aria-hidden="true"
             className="absolute top-2 -left-[5px] size-[9px] rounded-full border-2 border-accent bg-bg"
@@ -17,7 +19,7 @@ export default function Timeline({ items }) {
               ))}
             </ul>
           )}
-        </li>
+        </Reveal>
       ))}
     </ol>
   )

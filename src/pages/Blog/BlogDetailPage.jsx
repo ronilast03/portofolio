@@ -3,6 +3,8 @@ import Seo from '@/components/common/Seo'
 import Icon from '@/components/common/Icon'
 import Breadcrumb, { breadcrumbJsonLd } from '@/components/common/Breadcrumb'
 import PageTransition from '@/components/common/PageTransition'
+import ReadingProgress from '@/components/common/ReadingProgress'
+import Reveal from '@/components/common/Reveal'
 import ArticleCard, { ArticleCover } from '@/components/sections/ArticleCard'
 import ArticleBody from '@/components/sections/ArticleBody'
 import ShareButtons from '@/components/sections/ShareButtons'
@@ -46,6 +48,7 @@ export default function BlogDetailPage() {
           },
         ]}
       />
+      <ReadingProgress />
 
       <div className="container-page">
         <header className="max-w-190 pt-12 pb-7">
@@ -89,7 +92,7 @@ export default function BlogDetailPage() {
             </ul>
           </article>
 
-          <aside className="self-start text-sm lg:sticky lg:top-22]">
+          <aside className="self-start text-sm lg:sticky lg:top-22">
             {headings.length > 0 && (
               <nav aria-label="Daftar isi" className="mb-6">
                 <p className="eyebrow">Daftar isi</p>
@@ -125,8 +128,10 @@ export default function BlogDetailPage() {
                 </Link>
               </div>
               <div className="grid gap-5 md:grid-cols-2">
-                {related.map((p) => (
-                  <ArticleCard key={p.slug} post={p} />
+                {related.map((p, i) => (
+                  <Reveal key={p.slug} delay={i * 0.1} className="h-full">
+                    <ArticleCard post={p} />
+                  </Reveal>
                 ))}
               </div>
             </section>
