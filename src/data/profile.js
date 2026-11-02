@@ -6,7 +6,7 @@
 export const profile = {
   name: "Roni Lesmana",
   initials: "RL",
-  role: "Web Developer & IT Service Management Enthusiast",
+  role: "Web Developer & ITSM Enthusiast",
   // Teks singkat di hero (1–2 kalimat).
   intro:
     "Saya membangun website dan aplikasi web yang rapi dan mudah dipakai, sambil mendalami cara tim IT melayani penggunanya lewat praktik ITSM.",

@@ -12,7 +12,7 @@ export default function Footer() {
         <div>
           <Logo />
           <p className="mt-3 max-w-[36ch] text-[14.5px] text-muted">
-            Web developer dan pembelajar IT Service Management. Menulis catatan belajar di blog ini.
+            Web developer dan pembelajar IT Service Management.
           </p>
         </div>
         <div>
