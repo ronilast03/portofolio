@@ -1,0 +1,31 @@
+import { Link, useLocation } from 'react-router'
+import Seo from '@/components/common/Seo'
+import PageTransition from '@/components/common/PageTransition'
+
+export default function NotFoundPage() {
+  const { pathname } = useLocation()
+
+  return (
+    <PageTransition>
+      <Seo title="Halaman tidak ditemukan" path={pathname} noindex />
+      <div className="container-page">
+        <section className="max-w-[560px] py-24">
+          <p className="font-mono text-sm text-accent">404 · Halaman tidak ditemukan</p>
+          <h1 className="mt-2 text-[clamp(36px,6vw,60px)] font-extrabold tracking-[-0.03em]">Halaman ini tidak ada.</h1>
+          <p className="mt-3 text-muted">
+            Alamat <span className="font-mono break-all">{pathname}</span> mungkin salah ketik atau halamannya sudah
+            dipindahkan.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-2.5">
+            <Link to="/" className="btn btn-primary">
+              Kembali ke beranda
+            </Link>
+            <Link to="/blog" className="btn btn-ghost">
+              Baca blog
+            </Link>
+          </div>
+        </section>
+      </div>
+    </PageTransition>
+  )
+}

@@ -1,0 +1,239 @@
+@import 'tailwindcss';
+
+/* Dark mode berbasis class "dark" di <html> (lihat index.html & useTheme). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- Design tokens (PRD §9.2) ---------- */
+:root {
+  --bg: #ffffff;
+  --surface: #f5f5f5;
+  --fg: #222222;
+  --muted: #666666;
+  --line: #e5e5e5;
+  --accent: #2246d6;
+  --accent-fg: #ffffff;
+  --ok: #1c7c47;
+  --err: #b42318;
+  --warn: #9a6200;
+  color-scheme: light;
+}
+.dark {
+  --bg: #111111;
+  --surface: #1b1b1b;
+  --fg: #dadada;
+  --muted: #a0a0a0;
+  --line: #333333;
+  --accent: #8fa6ff;
+  --accent-fg: #111111;
+  --ok: #5cc98a;
+  --err: #ff8a80;
+  --warn: #e5b45c;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-ok: var(--ok);
+  --color-err: var(--err);
+  --color-warn: var(--warn);
+
+  /* PRD §9.3 */
+  --font-display: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 88px;
+  }
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-fg;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--accent) 25%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-[1080px] px-4 md:px-8;
+  }
+  .eyebrow {
+    @apply font-mono text-xs tracking-[0.08em] text-muted uppercase;
+  }
+  .btn {
+    @apply inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-[10px] border border-transparent px-[18px] text-[14.5px] font-semibold whitespace-nowrap no-underline transition active:translate-y-px disabled:cursor-progress disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply bg-fg text-bg hover:bg-accent hover:text-accent-fg;
+  }
+  .btn-ghost {
+    @apply border-line bg-transparent text-fg hover:border-fg;
+  }
+  .link-accent {
+    @apply inline-flex items-center gap-1.5 text-[14.5px] font-semibold text-accent no-underline hover:underline hover:underline-offset-4;
+  }
+  .tag {
+    @apply rounded-md border border-line bg-surface px-2 py-0.5 font-mono text-[11.5px] text-muted;
+  }
+  .input {
+    @apply w-full rounded-[9px] border border-line bg-bg px-[13px] py-[11px] text-[15px] text-fg placeholder:text-muted focus:border-transparent focus:outline-2 focus:outline-offset-0 focus:outline-accent;
+  }
+}
+
+/* ---------- Artikel (Markdown) ---------- */
+.prose-article {
+  max-width: 68ch;
+  font-size: 17px;
+  line-height: 1.75;
+  min-width: 0;
+}
+.prose-article h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 40px 0 12px;
+  letter-spacing: -0.015em;
+}
+.prose-article h3 {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 28px 0 8px;
+}
+.prose-article p,
+.prose-article ul,
+.prose-article ol,
+.prose-article blockquote {
+  margin: 0 0 18px;
+}
+.prose-article ul {
+  list-style: disc;
+  padding-left: 22px;
+}
+.prose-article ol {
+  list-style: decimal;
+  padding-left: 22px;
+}
+.prose-article li + li {
+  margin-top: 6px;
+}
+.prose-article a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+.prose-article strong {
+  font-weight: 600;
+}
+.prose-article blockquote {
+  padding: 4px 0 4px 18px;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+}
+.prose-article img {
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+.prose-article :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 1px 5px;
+  border-radius: 5px;
+}
+.prose-article pre {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 18px;
+  overflow-x: auto;
+  margin: 0 0 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  font-family: var(--font-mono);
+}
+.prose-article .table-wrap {
+  overflow-x: auto;
+  margin: 0 0 20px;
+}
+.prose-article table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 15px;
+}
+.prose-article th,
+.prose-article td {
+  border-bottom: 1px solid var(--line);
+  padding: 9px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+.prose-article th {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* Syntax highlight (rehype-highlight / highlight.js classes) */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-built_in {
+  color: var(--accent);
+}
+.hljs-string,
+.hljs-attr,
+.hljs-template-variable {
+  color: var(--ok);
+}
+.hljs-comment,
+.hljs-quote {
+  color: var(--muted);
+  font-style: italic;
+}
+.hljs-number,
+.hljs-literal,
+.hljs-variable {
+  color: var(--warn);
+}
+.hljs-title,
+.hljs-name,
+.hljs-tag {
+  font-weight: 600;
+}
