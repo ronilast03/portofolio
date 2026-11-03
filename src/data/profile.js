@@ -73,7 +73,7 @@ export const experience = [
   {
     period: "Feb 2024 — Mar 2024",
     title: "Fullstack Developer",
-    organization: "Dinas Perkebebunan Sumatera Selatan (Magang)",
+    organization: "Dinas Perkebunan Sumatera Selatan (Magang)",
     points: [
       "Membangun aplikasi web pengarsipan digital untuk digitalisasi pencatatan dokumen, sukses meminimalkan risiko kehilangan arsip instansi.",
       "Merancang modul pelacakan status dokumen, sistem disposisi digital, dan fitur generate laporan otomatis untuk efisiensi alur kerja.",

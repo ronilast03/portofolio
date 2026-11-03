@@ -4,7 +4,7 @@ slug: catatan-magang-service-desk
 description: "Hal-hal yang tidak diajarkan di kelas: menulis tiket yang jelas, mengatur prioritas, dan berkomunikasi dengan pengguna."
 date: 2026-10-05
 updatedAt:
-cover:
+cover: /images/blog/catatan-magang-service-desk.jpg
 category: Pengalaman
 tags: [magang, karier, itsm]
 published: true

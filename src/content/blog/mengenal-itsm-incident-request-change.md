@@ -4,7 +4,7 @@ slug: mengenal-itsm-incident-request-change
 description: "Tiga proses inti service desk dijelaskan dengan bahasa sederhana dan contoh sehari-hari."
 date: 2026-10-12
 updatedAt:
-cover:
+cover: /images/blog/mengenal-itsm-incident-request-change.jpg
 category: ITSM
 tags: [itsm, itil, ivanti]
 published: true

@@ -4,7 +4,7 @@ slug: belajar-react-js
 description: "Komponen, props, dan state dijelaskan dengan contoh kecil yang bisa langsung dicoba."
 date: 2026-10-28
 updatedAt:
-cover:
+cover: /images/blog/belajar-react-js.jpg
 category: Tutorial
 tags: [react, javascript]
 published: true

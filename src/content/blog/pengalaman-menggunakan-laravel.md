@@ -4,7 +4,7 @@ slug: pengalaman-menggunakan-laravel
 description: "Membuat endpoint contact form lengkap dengan validasi dan rate limiting di Laravel."
 date: 2026-10-20
 updatedAt: 2026-10-24
-cover:
+cover: /images/blog/pengalaman-menggunakan-laravel.jpg
 category: Catatan Belajar
 tags: [laravel, php, api]
 published: true
