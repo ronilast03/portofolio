@@ -16,14 +16,14 @@ export const profile = {
   // Paragraf biografi di halaman About.
   bio: [
     "Halo, saya Roni Lesmana. Saya tertarik pada dunia digital sejak lama, berawal dari membuat halaman web sederhana sampai membangun aplikasi kasir untuk usaha kecil.",
-    "Saat ini saya mengikuti program MagangHub di Pupuk Sriwidjaja Palembang, Departemen Teknologi Informasi, Bagian Layanan TI. Setiap hari saya bekerja dengan tiket incident dan service request, menulis dokumentasi, dan belajar bagaimana tim IT menjaga layanan tetap berjalan.",
+    "Saat ini saya mengikuti program MagangHub di PT. Pupuk Sriwidjaja Palembang, Departemen Teknologi Informasi, Bagian Layanan TI. Setiap hari saya bekerja dengan tiket incident dan service request, menulis dokumentasi, dan belajar bagaimana tim IT menjaga layanan tetap berjalan.",
     "Di luar itu saya terus mengasah kemampuan web development dengan React dan Laravel, serta berbagi materi pemrograman web lewat konten edukasi.",
   ],
   // Isi null jika belum punya foto. Contoh: '/images/profile.webp'
   photo: "/images/profile-bw.webp",
   location: "Indonesia",
   remote: true,
-  availability: "Terbuka untuk bekerja",
+  availability: "Open to work",
   available: true,
   responseTime: "≤ 1 hari kerja",
   email: "ronilesmana95@gmail.com",
@@ -31,7 +31,7 @@ export const profile = {
   facts: [
     { label: "Fokus", value: "Web development, ITSM" },
     { label: "Stack utama", value: "React · Laravel · MySQL", mono: true },
-    { label: "Tool ITSM", value: "Freshservie, Service DeskPlus" },
+    { label: "Tool ITSM", value: "Freshservice, Service DeskPlus" },
     { label: "Sedang", value: "MagangHub ITSM" },
   ],
   // Kalimat besar di section "Prinsip kerja" pada Home. Kata di dalam *...* dibuat miring.
@@ -79,7 +79,7 @@ export const experience = [
     points: [
       "Membangun aplikasi web pengarsipan digital untuk digitalisasi pencatatan dokumen, sukses meminimalkan risiko kehilangan arsip instansi.",
       "Merancang modul pelacakan status dokumen, sistem disposisi digital, dan fitur generate laporan otomatis untuk efisiensi alur kerja.",
-      "Mengamankan kerahasiaan data internal instansi melalui perancangan basis data relasional dan implementasi Role- Based Access Control (RBAC).",
+      "Mengamankan kerahasiaan data internal instansi melalui perancangan basis data relasional dan implementasi Role-Based Access Control (RBAC).",
     ],
   },
   {

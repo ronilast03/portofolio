@@ -42,7 +42,7 @@ export const projects = [
   },
   {
     slug: "sipakarla",
-    title: "Sipakarla - Sistem Pemantuan Kebakaran Hutan & Lahan",
+    title: "Sipakarla - Sistem Pemantauan Kebakaran Hutan & Lahan",
     category: "Website",
     year: "2026",
     featured: true,
