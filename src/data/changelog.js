@@ -10,6 +10,21 @@
 
 export const changes = [
   {
+    id: 'CHG-0016',
+    date: '2026-11-03',
+    title: 'Merapikan gaya visual',
+    type: 'Standard',
+    category: 'Desain',
+    risk: 'Rendah',
+    status: 'Implemented',
+    summary: 'Tampilan dibuat lebih tenang dan konsisten supaya fokus tetap pada isi.',
+    items: [
+      'Showreel dipindah dari Home ke halaman Projects',
+      'Huruf miring hanya dipakai di beberapa judul penting',
+      'Pemisah pita tech stack diganti menjadi garis miring ( / )',
+    ],
+  },
+  {
     id: 'CHG-0015',
     date: '2026-11-03',
     title: 'Kartu nama digital dan QR code',

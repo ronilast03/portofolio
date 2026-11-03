@@ -89,7 +89,7 @@ export default function ChangelogPage() {
       />
       <div className="container-page pb-18">
         <PageHeader
-          title="Catatan *perubahan*"
+          title="Catatan perubahan"
           description="Setiap perubahan di website ini dicatat seperti change request di ITSM: apa yang diubah, jenisnya, risikonya, dan statusnya."
           breadcrumb={crumbs}
         />

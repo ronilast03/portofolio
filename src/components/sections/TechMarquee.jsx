@@ -7,9 +7,9 @@ function Row({ items, hidden = false }) {
     <ul className="marquee-row" aria-hidden={hidden || undefined}>
       {items.map((name, i) => (
         <li key={name} className="flex shrink-0 items-center">
-          <span className={`display-serif text-[clamp(30px,4.4vw,54px)] ${i % 2 ? 'serif-em text-muted' : ''}`}>{name}</span>
-          <span aria-hidden="true" className="mx-[clamp(18px,2.6vw,36px)] text-[clamp(14px,1.6vw,20px)] text-accent">
-            ✦
+          <span className={`display-serif text-[clamp(30px,4.4vw,54px)] ${i % 2 ? 'text-muted' : ''}`}>{name}</span>
+          <span aria-hidden="true" className="mx-[clamp(16px,2.4vw,32px)] font-mono text-[clamp(18px,2.2vw,28px)] text-accent">
+            /
           </span>
         </li>
       ))}

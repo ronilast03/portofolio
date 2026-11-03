@@ -60,7 +60,7 @@ export default function BlogPage() {
       />
       <div className="container-page pb-18">
         <PageHeader
-          title="Catatan & *tulisan*"
+          title="Catatan & tulisan"
           description="Artikel, tutorial, dan catatan belajar seputar web development, ITSM, dan pengalaman magang."
           breadcrumb={crumbs}
         />

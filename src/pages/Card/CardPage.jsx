@@ -157,7 +157,7 @@ export default function CardPage() {
       />
       <div className="container-page pb-18">
         <PageHeader
-          title="Kartu nama *digital*"
+          title="Kartu nama digital"
           description="Simpan kontak saya langsung ke HP, atau tunjukkan QR code ini saat bertemu langsung."
           breadcrumb={crumbs}
         />

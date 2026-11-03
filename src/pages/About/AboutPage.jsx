@@ -42,7 +42,7 @@ export default function AboutPage() {
         jsonLd={breadcrumbJsonLd(crumbs)}
       />
       <div className="container-page">
-        <PageHeader title="Tentang *saya*" description="Latar belakang, pendidikan, pengalaman, sertifikat, dan keahlian." breadcrumb={crumbs} />
+        <PageHeader title="Tentang saya" description="Latar belakang, pendidikan, pengalaman, sertifikat, dan keahlian." breadcrumb={crumbs} />
 
         <div className="grid gap-10 pb-14 lg:grid-cols-[220px_1fr] lg:gap-16">
           {profile.photo ? (

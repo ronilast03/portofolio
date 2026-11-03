@@ -16,7 +16,7 @@ export default function PrivacyPolicyPage() {
         path="/privacy-policy"
       />
       <div className="container-page">
-        <PageHeader title="Kebijakan *privasi*" description={`Terakhir diperbarui ${LAST_UPDATED}.`} breadcrumb={crumbs} />
+        <PageHeader title="Kebijakan privasi" description={`Terakhir diperbarui ${LAST_UPDATED}.`} breadcrumb={crumbs} />
 
         <div className="max-w-[68ch] pb-[72px] [&_h2]:mt-8 [&_h2]:mb-2 [&_h2]:text-xl [&_h2]:font-bold [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5">
           <h2>Data yang dikumpulkan</h2>

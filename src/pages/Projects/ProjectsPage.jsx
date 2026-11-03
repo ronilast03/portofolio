@@ -6,6 +6,7 @@ import EmptyState from '@/components/common/EmptyState'
 import Reveal from '@/components/common/Reveal'
 import { breadcrumbJsonLd } from '@/components/common/Breadcrumb'
 import ProjectCard from '@/components/sections/ProjectCard'
+import ShowreelSection from '@/components/sections/ShowreelSection'
 import { projectCategories, projects } from '@/data/projects'
 import { useHydrated } from '@/hooks/useHydrated'
 
@@ -35,7 +36,7 @@ export default function ProjectsPage() {
         jsonLd={breadcrumbJsonLd(crumbs)}
       />
       <div className="container-page pb-18">
-        <PageHeader title="Semua *proyek*" description="Aplikasi web, alat bantu ITSM, dan website yang pernah saya kerjakan." breadcrumb={crumbs} />
+        <PageHeader title="Semua proyek" description="Aplikasi web, alat bantu ITSM, dan website yang pernah saya kerjakan." breadcrumb={crumbs} />
 
         <div role="group" aria-label="Filter kategori proyek" className="mb-7 flex flex-wrap gap-2">
           {categories.map((cat) => {
@@ -69,6 +70,10 @@ export default function ProjectsPage() {
         ) : (
           <EmptyState title="Belum ada proyek">Belum ada proyek di kategori ini.</EmptyState>
         )}
+
+        <div className="pt-16 lg:pt-20">
+          <ShowreelSection />
+        </div>
       </div>
     </PageTransition>
   )

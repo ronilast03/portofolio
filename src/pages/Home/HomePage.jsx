@@ -9,7 +9,6 @@ import SectionHeading from "@/components/sections/SectionHeading";
 import ProjectCard from "@/components/sections/ProjectCard";
 import { ArticleRow } from "@/components/sections/ArticleCard";
 import ContactCta from "@/components/sections/ContactCta";
-import ShowreelSection from "@/components/sections/ShowreelSection";
 import Manifesto from "@/components/sections/Manifesto";
 import TicketLab from "@/components/sections/TicketLab";
 import Terminal from "@/components/sections/Terminal";
@@ -97,7 +96,7 @@ export default function HomePage() {
             <Reveal>
               <SectionHeading
                 id="cert-home-title"
-                title="Sertifikat *pilihan*"
+                title="Sertifikat pilihan"
                 description="Kursus dan program yang sudah saya selesaikan."
                 linkTo="/about#sertifikat"
                 linkLabel="Semua sertifikat"
@@ -117,8 +116,6 @@ export default function HomePage() {
             </ul>
           </section>
         )}
-
-        <ShowreelSection />
 
         <section aria-labelledby="featured-title" className="pb-14 lg:pb-20">
           <Reveal>
@@ -149,7 +146,7 @@ export default function HomePage() {
           <Reveal>
             <SectionHeading
               id="terminal-title"
-              title="Terminal *mini*"
+              title="Terminal mini"
               description="Lebih suka mengetik? Jelajahi profil saya lewat perintah. Mulai dengan help."
             />
           </Reveal>
@@ -162,7 +159,7 @@ export default function HomePage() {
           <Reveal>
             <SectionHeading
               id="latest-title"
-              title="Artikel *terbaru*"
+              title="Artikel terbaru"
               description="Tutorial dan catatan belajar seputar web development dan ITSM."
               linkTo="/blog"
               linkLabel="Semua artikel"

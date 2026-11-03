@@ -123,7 +123,7 @@ export default function BlogDetailPage() {
             <section aria-labelledby="related-title" className="pt-10 pb-16">
               <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
                 <h2 id="related-title" className="display-serif text-[clamp(32px,4vw,44px)]">
-                  Artikel <em className="serif-em">terkait</em>
+                  Artikel terkait
                 </h2>
                 <Link to="/blog" className="link-accent">
                   <Icon name="arrowLeft" /> Kembali ke blog
