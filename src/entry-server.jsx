@@ -39,3 +39,4 @@ export function getRoutes() {
 }
 
 export { site }
+export { preloadAll } from '@/routes/AppRoutes'

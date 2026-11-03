@@ -15,4 +15,8 @@ export default defineConfig({
   server: {
     port: 5173,
   },
+  // manifest dipakai scripts/prerender.mjs untuk memuat file JS halaman lebih awal (modulepreload).
+  build: {
+    manifest: true,
+  },
 })

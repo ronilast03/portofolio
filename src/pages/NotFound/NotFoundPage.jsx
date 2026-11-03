@@ -13,7 +13,9 @@ export default function NotFoundPage() {
       <div className="container-page">
         <section className="max-w-[560px] py-24">
           <p className="font-mono text-sm text-accent">404 · Halaman tidak ditemukan</p>
-          <h1 className="mt-2 text-[clamp(36px,6vw,60px)] font-extrabold tracking-[-0.03em]">Halaman ini tidak ada.</h1>
+          <h1 className="display-serif mt-2 text-[clamp(46px,7vw,80px)]">
+            Halaman ini <em className="serif-em">tidak ada.</em>
+          </h1>
           <p className="mt-3 text-muted">
             {hydrated ? (
               <>

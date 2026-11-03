@@ -51,7 +51,16 @@ export function useTheme() {
       setTheme(e.matches ? 'dark' : 'light')
     }
     media.addEventListener('change', onChange)
-    return () => media.removeEventListener('change', onChange)
+
+    // Tema juga bisa diganti dari tempat lain (command palette, terminal):
+    // semua tombol tema ikut menyesuaikan ikonnya.
+    const observer = new MutationObserver(() => setTheme(readTheme()))
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+
+    return () => {
+      media.removeEventListener('change', onChange)
+      observer.disconnect()
+    }
   }, [])
 
   const toggleTheme = useCallback((event) => {

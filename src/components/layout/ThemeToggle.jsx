@@ -10,6 +10,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggleTheme}
+      data-theme-toggle
       aria-label={mounted ? label : 'Ganti tema'}
       title={mounted ? label : 'Ganti tema'}
       className="grid size-10 cursor-pointer place-items-center rounded-[10px] border border-line text-fg hover:bg-surface"

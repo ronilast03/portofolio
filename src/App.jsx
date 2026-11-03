@@ -1,4 +1,5 @@
 import { LazyMotion, MotionConfig, domAnimation } from 'motion/react'
+import { Analytics } from '@vercel/analytics/react'
 import AppRoutes from '@/routes/AppRoutes'
 
 export default function App() {
@@ -8,6 +9,8 @@ export default function App() {
     <LazyMotion features={domAnimation} strict>
       <MotionConfig reducedMotion="user">
         <AppRoutes />
+        {/* Statistik pengunjung Vercel: anonim, tanpa cookie. Aktifkan di dashboard Vercel → Analytics. */}
+        <Analytics />
       </MotionConfig>
     </LazyMotion>
   )

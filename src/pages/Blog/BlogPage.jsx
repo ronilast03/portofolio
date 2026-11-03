@@ -60,7 +60,7 @@ export default function BlogPage() {
       />
       <div className="container-page pb-18">
         <PageHeader
-          title="Blog"
+          title="Catatan & *tulisan*"
           description="Artikel, tutorial, dan catatan belajar seputar web development, ITSM, dan pengalaman magang."
           breadcrumb={crumbs}
         />
@@ -117,7 +117,7 @@ export default function BlogPage() {
           <div className="grid gap-5 md:grid-cols-2">
             {list.map((post, i) => (
               <Reveal key={post.slug} delay={(i % 2) * 0.1} className="h-full">
-                <ArticleCard post={post} headingAs="h2" />
+                <ArticleCard post={post} headingAs="h2" priority={i === 0} />
               </Reveal>
             ))}
           </div>

@@ -11,6 +11,7 @@ export function ArticleCover({ post, large = false, priority = false }) {
         src={post.cover}
         alt=""
         priority={priority}
+        sizes={large ? '(min-width: 1080px) 1016px, 100vw' : '(min-width: 768px) 50vw, 100vw'}
         className={large ? 'aspect-[16/6] rounded-[14px] border border-line' : 'aspect-[16/7] border-b border-line'}
         imgClassName={large ? undefined : 'group-hover:scale-104'}
       />
@@ -37,13 +38,13 @@ export function ArticleCover({ post, large = false, priority = false }) {
   )
 }
 
-export default function ArticleCard({ post, headingAs: Heading = 'h3' }) {
+export default function ArticleCard({ post, headingAs: Heading = 'h3', priority = false }) {
   return (
     <Link
       to={`/blog/${post.slug}`}
       className="spotlight group flex h-full flex-col overflow-hidden rounded-[10px] border border-line no-underline transition hover:-translate-y-0.5 hover:border-fg"
     >
-      <ArticleCover post={post} />
+      <ArticleCover post={post} priority={priority} />
       <div className="flex flex-1 flex-col gap-2 p-[18px]">
         <Heading className="text-[19px] font-bold transition-colors group-hover:text-accent">{post.title}</Heading>
         <p className="text-[14.5px] text-muted">{post.description}</p>

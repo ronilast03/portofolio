@@ -5,6 +5,7 @@ import { navigation } from '@/data/site'
 import { profile } from '@/data/profile'
 import Icon from '@/components/common/Icon'
 import ThemeToggle from './ThemeToggle'
+import SearchButton from './SearchButton'
 
 export function Logo() {
   return (
@@ -60,6 +61,7 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-1.5">
+          <SearchButton />
           <ThemeToggle />
           <button
             type="button"

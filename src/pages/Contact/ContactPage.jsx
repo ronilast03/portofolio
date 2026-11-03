@@ -38,7 +38,7 @@ export default function ContactPage() {
       />
       <div className="container-page">
         <PageHeader
-          title="Hubungi saya"
+          title="Hubungi *saya*"
           description="Untuk tawaran kerja, kolaborasi proyek, atau sekadar bertanya soal artikel. Pesan dibalas dalam satu hari kerja."
           breadcrumb={crumbs}
         />

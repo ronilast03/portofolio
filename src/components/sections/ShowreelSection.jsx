@@ -87,7 +87,7 @@ export default function ShowreelSection() {
       <Reveal>
         <SectionHeading
           id="showreel-title"
-          title="Sekilas karya"
+          title="Sekilas *karya*"
           description="Cuplikan singkat proyek-proyek yang pernah saya kerjakan."
         />
       </Reveal>

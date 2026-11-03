@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react'
+import { Suspense, useEffect, useRef } from 'react'
 import { Outlet, useLocation } from 'react-router'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import CommandPalette from '@/components/common/CommandPalette'
 
 export default function Layout() {
   const { pathname, hash } = useLocation()
@@ -14,7 +15,11 @@ export default function Layout() {
       firstRender.current = false
       return
     }
-    if (hash) return
+    if (hash) {
+      // Link seperti /about#sertifikat: gulir ke bagian yang dituju setelah halaman dirender.
+      requestAnimationFrame(() => document.getElementById(decodeURIComponent(hash.slice(1)))?.scrollIntoView())
+      return
+    }
     window.scrollTo({ top: 0, behavior: 'instant' })
     mainRef.current?.focus({ preventScroll: true })
   }, [pathname, hash])
@@ -29,9 +34,13 @@ export default function Layout() {
       </a>
       <Navbar />
       <main id="konten" ref={mainRef} tabIndex={-1} className="min-h-[60vh] outline-none">
-        <Outlet />
+        {/* Ditampilkan sebentar hanya jika file halaman belum selesai diunduh. */}
+        <Suspense fallback={<div className="min-h-[60vh]" aria-busy="true" />}>
+          <Outlet />
+        </Suspense>
       </main>
       <Footer />
+      <CommandPalette />
     </>
   )
 }

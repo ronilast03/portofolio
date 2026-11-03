@@ -34,6 +34,8 @@ export const profile = {
     { label: "Tool ITSM", value: "Freshservie, Service DeskPlus" },
     { label: "Sedang", value: "MagangHub ITSM" },
   ],
+  // Kalimat besar di section "Prinsip kerja" pada Home. Kata di dalam *...* dibuat miring.
+  manifesto: "Saya membangun aplikasi dari dua sisi: *menulis kodenya*, lalu *melayani penggunanya*.",
   focusAreas: ["Website", "Aplikasi web", "ITSM"],
   interests: [
     "Pengembangan web",

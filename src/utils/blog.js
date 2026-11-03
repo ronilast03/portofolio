@@ -5,7 +5,8 @@
  *
  * File yang diawali "_" (misalnya template) dan artikel dengan published: false diabaikan.
  */
-const modules = import.meta.glob('../content/blog/*.md', { eager: true, import: 'default' })
+// "?meta": hanya metadata. Isi artikel (HTML) ada di utils/blogContent.js, dimuat oleh halaman detail saja.
+const modules = import.meta.glob('../content/blog/*.md', { eager: true, query: '?meta', import: 'default' })
 
 export const posts = Object.entries(modules)
   .filter(([path]) => !path.split('/').pop().startsWith('_'))

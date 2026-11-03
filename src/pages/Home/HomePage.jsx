@@ -4,11 +4,17 @@ import Icon from '@/components/common/Icon'
 import PageTransition from '@/components/common/PageTransition'
 import Reveal from '@/components/common/Reveal'
 import Hero from '@/components/sections/Hero'
+import HeroWave from '@/components/sections/HeroWave'
 import SectionHeading from '@/components/sections/SectionHeading'
 import ProjectCard from '@/components/sections/ProjectCard'
 import { ArticleRow } from '@/components/sections/ArticleCard'
 import ContactCta from '@/components/sections/ContactCta'
 import ShowreelSection from '@/components/sections/ShowreelSection'
+import Manifesto from '@/components/sections/Manifesto'
+import TicketLab from '@/components/sections/TicketLab'
+import Terminal from '@/components/sections/Terminal'
+import CertificateCard from '@/components/sections/CertificateCard'
+import { featuredCertificates } from '@/data/certificates'
 import { profile, socials } from '@/data/profile'
 import { site } from '@/data/site'
 import { featuredProjects } from '@/data/projects'
@@ -17,6 +23,7 @@ import { latestPosts } from '@/utils/blog'
 export default function HomePage() {
   const projects = featuredProjects(3)
   const posts = latestPosts(3)
+  const certs = featuredCertificates(3)
 
   return (
     <PageTransition>
@@ -35,14 +42,19 @@ export default function HomePage() {
         ]}
       />
 
-      <div className="container-page">
-        <Hero />
+      <div className="relative overflow-hidden">
+        <HeroWave />
+        <div className="container-page relative">
+          <Hero />
+        </div>
       </div>
 
       <hr className="border-line" />
 
       <div className="container-page">
-        <section aria-labelledby="intro-title" className="py-14 lg:py-20">
+        <Manifesto />
+
+        <section aria-labelledby="intro-title" className="pb-14 lg:pb-20">
           <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
             <Reveal>
               <h2 id="intro-title" className="eyebrow font-mono">
@@ -66,13 +78,34 @@ export default function HomePage() {
           </div>
         </section>
 
+        {certs.length > 0 && (
+          <section aria-labelledby="cert-home-title" className="pb-14 lg:pb-20">
+            <Reveal>
+              <SectionHeading
+                id="cert-home-title"
+                title="Sertifikat *pilihan*"
+                description="Kursus dan program yang sudah saya selesaikan."
+                linkTo="/about#sertifikat"
+                linkLabel="Semua sertifikat"
+              />
+            </Reveal>
+            <ul className="grid gap-5 md:grid-cols-3">
+              {certs.map((c, i) => (
+                <Reveal as="li" key={c.title} delay={i * 0.1} className="h-full">
+                  <CertificateCard cert={c} compact />
+                </Reveal>
+              ))}
+            </ul>
+          </section>
+        )}
+
         <ShowreelSection />
 
         <section aria-labelledby="featured-title" className="pb-14 lg:pb-20">
           <Reveal>
             <SectionHeading
               id="featured-title"
-              title="Proyek pilihan"
+              title="Proyek *pilihan*"
               description="Beberapa hal yang pernah saya bangun, dari aplikasi kasir sampai alat bantu service desk."
               linkTo="/projects"
               linkLabel="Semua proyek"
@@ -87,11 +120,26 @@ export default function HomePage() {
           </div>
         </section>
 
+        <TicketLab />
+
+        <section id="terminal" aria-labelledby="terminal-title" className="pb-14 lg:pb-20">
+          <Reveal>
+            <SectionHeading
+              id="terminal-title"
+              title="Terminal *mini*"
+              description="Lebih suka mengetik? Jelajahi profil saya lewat perintah. Mulai dengan help."
+            />
+          </Reveal>
+          <Reveal delay={0.1}>
+            <Terminal />
+          </Reveal>
+        </section>
+
         <section aria-labelledby="latest-title" className="pb-14 lg:pb-20">
           <Reveal>
             <SectionHeading
               id="latest-title"
-              title="Artikel terbaru"
+              title="Artikel *terbaru*"
               description="Tutorial dan catatan belajar seputar web development dan ITSM."
               linkTo="/blog"
               linkLabel="Semua artikel"

@@ -54,8 +54,12 @@ function countWords(markdown) {
 export default function markdownPlugin() {
   return {
     name: 'portfolio-markdown',
-    async transform(code, id) {
+    async transform(code, rawId) {
+      // "artikel.md?meta" = hanya metadata (untuk daftar artikel, pencarian, dsb.) tanpa HTML,
+      // supaya isi semua artikel tidak ikut terunduh di setiap halaman.
+      const [id, query = ''] = rawId.split('?')
       if (!id.endsWith('.md')) return null
+      const metaOnly = new URLSearchParams(query).has('meta')
 
       const match = FRONTMATTER.exec(code)
       if (!match) this.error(`Frontmatter tidak ditemukan di ${id}`)
@@ -91,6 +95,11 @@ export default function markdownPlugin() {
         html: String(file),
       }
 
+      if (metaOnly) {
+        // eslint-disable-next-line no-unused-vars
+        const { html, headings: _h, ...meta } = post
+        return { code: `export default ${JSON.stringify(meta)}`, map: null }
+      }
       return { code: `export default ${JSON.stringify(post)}`, map: null }
     },
   }

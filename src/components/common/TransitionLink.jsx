@@ -1,6 +1,7 @@
 import { flushSync } from 'react-dom'
 import { Link, useNavigate } from 'react-router'
 import { clearViewTransition, markViewTransition } from '@/utils/viewTransition'
+import { preloadRoute } from '@/routes/AppRoutes'
 
 /**
  * Link yang berpindah halaman dengan View Transitions API: elemen yang memiliki
@@ -20,12 +21,17 @@ export default function TransitionLink({ to, onClick, ...props }) {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     e.preventDefault()
-    markViewTransition()
-    const transition = document.startViewTransition(() => {
-      flushSync(() => navigate(to))
-      window.scrollTo({ top: 0, behavior: 'instant' })
-    })
-    transition.finished.finally(clearViewTransition)
+    // Pastikan file halaman tujuan sudah terunduh, baru jalankan transisi (tanpa layar kosong).
+    preloadRoute(typeof to === 'string' ? to : to?.pathname)
+      .catch(() => {})
+      .finally(() => {
+        markViewTransition()
+        const transition = document.startViewTransition(() => {
+          flushSync(() => navigate(to))
+          window.scrollTo({ top: 0, behavior: 'instant' })
+        })
+        transition.finished.finally(clearViewTransition)
+      })
   }
 
   return <Link to={to} onClick={handleClick} {...props} />

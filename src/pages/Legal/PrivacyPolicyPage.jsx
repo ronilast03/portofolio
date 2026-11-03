@@ -5,7 +5,7 @@ import PageTransition from '@/components/common/PageTransition'
 import { profile } from '@/data/profile'
 
 const crumbs = [{ label: 'Home', to: '/' }, { label: 'Kebijakan Privasi' }]
-const LAST_UPDATED = '2 November 2026'
+const LAST_UPDATED = '3 November 2026'
 
 export default function PrivacyPolicyPage() {
   return (
@@ -16,7 +16,7 @@ export default function PrivacyPolicyPage() {
         path="/privacy-policy"
       />
       <div className="container-page">
-        <PageHeader title="Kebijakan Privasi" description={`Terakhir diperbarui ${LAST_UPDATED}.`} breadcrumb={crumbs} />
+        <PageHeader title="Kebijakan *privasi*" description={`Terakhir diperbarui ${LAST_UPDATED}.`} breadcrumb={crumbs} />
 
         <div className="max-w-[68ch] pb-[72px] [&_h2]:mt-8 [&_h2]:mb-2 [&_h2]:text-xl [&_h2]:font-bold [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5">
           <h2>Data yang dikumpulkan</h2>
@@ -37,6 +37,13 @@ export default function PrivacyPolicyPage() {
             <li>Komunikasi menggunakan HTTPS.</li>
             <li>Formulir dilindungi pembatasan jumlah pengiriman untuk mencegah spam.</li>
           </ul>
+
+          <h2>Statistik pengunjung</h2>
+          <p>
+            Website ini memakai Vercel Web Analytics untuk menghitung jumlah kunjungan dan halaman yang dibuka. Data
+            yang dikumpulkan bersifat anonim dan digabungkan, tidak memakai cookie, dan tidak dipakai untuk melacak
+            kamu di website lain.
+          </p>
 
           <h2>Preferensi tema</h2>
           <p>Pilihan mode gelap atau terang disimpan di browser kamu sendiri (localStorage) dan tidak dikirim ke server.</p>

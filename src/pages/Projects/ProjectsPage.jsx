@@ -35,7 +35,7 @@ export default function ProjectsPage() {
         jsonLd={breadcrumbJsonLd(crumbs)}
       />
       <div className="container-page pb-18">
-        <PageHeader title="Proyek" description="Aplikasi web, alat bantu ITSM, dan website yang pernah saya kerjakan." breadcrumb={crumbs} />
+        <PageHeader title="Semua *proyek*" description="Aplikasi web, alat bantu ITSM, dan website yang pernah saya kerjakan." breadcrumb={crumbs} />
 
         <div role="group" aria-label="Filter kategori proyek" className="mb-7 flex flex-wrap gap-2">
           {categories.map((cat) => {

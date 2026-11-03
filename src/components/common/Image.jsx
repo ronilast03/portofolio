@@ -10,7 +10,7 @@ import Skeleton from './Skeleton'
  */
 export default function Image({ src, alt, className, imgClassName, wrapperStyle, priority = false, sizes, ...props }) {
   const [loaded, setLoaded] = useState(false)
-  const srcSet = variants.has(src) ? `${src.replace(/\.webp$/, '-800.webp')} 800w, ${src} 1600w` : undefined
+  const srcSet = variants.has(src) ? `${src.replace(/\.(webp|jpe?g|png)$/, '-800.webp')} 800w, ${src} 1600w` : undefined
 
   return (
     <div className={cn('relative overflow-hidden bg-surface', className)} style={wrapperStyle}>

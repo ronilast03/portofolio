@@ -27,12 +27,16 @@ export default function Hero() {
         <h1
           id="hero-title"
           aria-label={profile.name}
-          className="text-[clamp(42px,7vw,76px)] leading-[1.02] font-extrabold tracking-[-0.035em]"
+          className="display-serif text-[clamp(60px,10.5vw,124px)] leading-[0.95]"
         >
+          {/* Kata terakhir nama dibuat miring, gaya editorial */}
           {words.map((word, i) => (
             <span key={word + i} aria-hidden="true">
               <span className="hero-word-mask">
-                <span className="hero-word" style={delay(80 + i * 110)}>
+                <span
+                  className={`hero-word ${i === words.length - 1 && words.length > 1 ? 'serif-em' : ''}`}
+                  style={delay(80 + i * 110)}
+                >
                   {word}
                 </span>
               </span>

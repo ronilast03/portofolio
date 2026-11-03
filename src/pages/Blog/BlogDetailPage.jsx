@@ -10,6 +10,7 @@ import ArticleBody from '@/components/sections/ArticleBody'
 import ShareButtons from '@/components/sections/ShareButtons'
 import { site } from '@/data/site'
 import { getPostBySlug, relatedPosts } from '@/utils/blog'
+import { getPostContent } from '@/utils/blogContent'
 import { formatDate } from '@/utils/date'
 import NotFoundPage from '@/pages/NotFound/NotFoundPage'
 
@@ -19,7 +20,8 @@ export default function BlogDetailPage() {
   if (!post) return <NotFoundPage />
 
   const url = `${site.url}/blog/${post.slug}`
-  const headings = post.headings
+  const content = getPostContent(post.slug)
+  const headings = content?.headings || []
   const related = relatedPosts(post, 2)
   const crumbs = [{ label: 'Home', to: '/' }, { label: 'Blog', to: '/blog' }, { label: post.title }]
 
@@ -54,7 +56,7 @@ export default function BlogDetailPage() {
         <header className="max-w-190 pt-12 pb-7">
           <Breadcrumb items={crumbs} />
           <p className="eyebrow text-accent!">{post.category}</p>
-          <h1 className="mt-2 text-[clamp(30px,4.6vw,46px)] font-extrabold tracking-tight">{post.title}</h1>
+          <h1 className="display-serif mt-2 text-[clamp(38px,5.4vw,62px)]">{post.title}</h1>
           <p className="mt-3.5 text-lg text-muted">{post.description}</p>
           <div className="mt-5 flex flex-wrap gap-x-3.5 gap-y-1 font-mono text-[12.5px] text-muted">
             <span>{post.author}</span>
@@ -77,7 +79,7 @@ export default function BlogDetailPage() {
 
         <div className="grid gap-10 py-10 lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-16">
           <article className="min-w-0">
-            <ArticleBody html={post.html} />
+            <ArticleBody html={content?.html || ''} />
             <ul className="mt-8 flex flex-wrap gap-1.5">
               {post.tags.map((t) => (
                 <li key={t}>
@@ -120,8 +122,8 @@ export default function BlogDetailPage() {
             <hr className="border-line" />
             <section aria-labelledby="related-title" className="pt-10 pb-16">
               <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
-                <h2 id="related-title" className="text-[clamp(24px,3vw,32px)] font-bold tracking-[-0.02em]">
-                  Artikel terkait
+                <h2 id="related-title" className="display-serif text-[clamp(32px,4vw,44px)]">
+                  Artikel <em className="serif-em">terkait</em>
                 </h2>
                 <Link to="/blog" className="link-accent">
                   <Icon name="arrowLeft" /> Kembali ke blog

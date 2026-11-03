@@ -47,6 +47,8 @@
   --font-display: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Judul besar bergaya editorial */
+  --font-serif: 'Instrument Serif', ui-serif, Georgia, 'Times New Roman', serif;
 }
 
 @layer base {
@@ -92,6 +94,16 @@
 @layer components {
   .container-page {
     @apply mx-auto w-full max-w-[1080px] px-4 md:px-8;
+  }
+  /* Judul serif: hanya punya ketebalan 400, jadi jangan diberi font-bold. */
+  .display-serif {
+    @apply font-serif font-normal tracking-[-0.015em];
+    line-height: 1.02;
+  }
+  .serif-em {
+    @apply italic;
+    /* sedikit ruang supaya ekor huruf miring tidak terpotong */
+    padding-right: 0.04em;
   }
   .eyebrow {
     @apply font-mono text-xs tracking-[0.08em] text-muted uppercase;
@@ -153,6 +165,7 @@
 }
 .prose-article a {
   color: var(--accent);
+  text-decoration: underline;
   text-underline-offset: 3px;
 }
 .prose-article strong {
@@ -301,6 +314,17 @@
   }
 }
 
+/* ---------- Latar gelombang hero ---------- */
+/* Lebih redup di belakang teks (kiri) supaya tetap mudah dibaca. */
+.hero-wave {
+  mask-image: linear-gradient(to right, rgb(0 0 0 / 0.28) 0%, rgb(0 0 0 / 0.5) 35%, #000 70%);
+}
+@media (max-width: 1023px) {
+  .hero-wave {
+    mask-image: linear-gradient(to bottom, rgb(0 0 0 / 0.25), rgb(0 0 0 / 0.6));
+  }
+}
+
 /* ---------- Animasi ganti tema ---------- */
 /* Lingkaran yang membuka/menutup saat tema diganti (dianimasikan di useTheme.js). */
 .theme-wipe {
@@ -381,4 +405,48 @@
   .spotlight:hover::after {
     opacity: 1;
   }
+}
+
+/* ---------- Manifesto ---------- */
+/* --p (0..1) diatur Motion saat scroll: abu-abu -> warna penuh. Kontras tetap aman di semua posisi. */
+.manifesto-word {
+  color: color-mix(in srgb, var(--fg) calc(var(--p, 1) * 100%), var(--muted));
+}
+.manifesto-accent {
+  color: color-mix(in srgb, var(--accent) calc(var(--p, 1) * 100%), var(--muted));
+}
+
+/* ---------- Lab interaktif ---------- */
+.lab-cell[data-p='1'] { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+.lab-cell[data-p='2'] { background: color-mix(in srgb, var(--accent) 15%, transparent); }
+.lab-cell[data-p='3'] { background: color-mix(in srgb, var(--accent) 9%, transparent); }
+.lab-cell[data-p='4'] { background: color-mix(in srgb, var(--accent) 4%, transparent); }
+.lab-cell[data-p='5'] { background: transparent; }
+.lab-cell.lab-cell-active {
+  background: var(--fg);
+  color: var(--bg);
+}
+.lab-feedback {
+  animation: hero-rise 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ---------- Command palette ---------- */
+.palette-dialog[open] {
+  animation: palette-in 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes palette-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+}
+
+/* ---------- Terminal mini ---------- */
+.term-link {
+  color: #8fa6ff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.term-link:hover {
+  color: #b9c7ff;
 }
