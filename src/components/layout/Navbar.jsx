@@ -51,7 +51,7 @@ export default function Navbar() {
                     }`}
                   >
                     {item.label}
-                    {active && <span className="mt-[3px] block h-0.5 rounded bg-accent" />}
+                    {active && <span className="mt-0.75 block h-0.5 rounded bg-accent" />}
                   </NavLink>
                 </li>
               )
@@ -69,7 +69,7 @@ export default function Navbar() {
             aria-label={open ? 'Tutup menu' : 'Buka menu'}
             onClick={() => setOpen((v) => !v)}
           >
-            <Icon name={open ? 'close' : 'menu'} className="size-[18px]" />
+            <Icon name={open ? 'close' : 'menu'} className="size-4.5" />
           </button>
         </div>
       </div>

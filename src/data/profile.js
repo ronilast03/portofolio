@@ -31,7 +31,7 @@ export const profile = {
   facts: [
     { label: "Fokus", value: "Web development, ITSM" },
     { label: "Stack utama", value: "React · Laravel · MySQL", mono: true },
-    { label: "Tool ITSM", value: "Fresh Servie, Service DeskPlus" },
+    { label: "Tool ITSM", value: "Freshservie, Service DeskPlus" },
     { label: "Sedang", value: "MagangHub ITSM" },
   ],
   focusAreas: ["Website", "Aplikasi web", "ITSM"],

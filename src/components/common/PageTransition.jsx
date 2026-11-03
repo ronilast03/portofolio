@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { m, useReducedMotion } from 'motion/react'
+import { isViewTransitionPending } from '@/utils/viewTransition'
 
 // Halaman pertama (hasil prerender) langsung tampil tanpa animasi supaya konten
 // terlihat utuh sejak awal. Animasi hanya untuk perpindahan halaman berikutnya (FR-038).
@@ -7,7 +8,8 @@ let appMounted = false
 
 export default function PageTransition({ children }) {
   const reduce = useReducedMotion()
-  const animate = appMounted && !reduce
+  // Lewati fade jika halaman dibuka lewat view transition (gambar proyek yang "terbang").
+  const animate = appMounted && !reduce && !isViewTransitionPending()
 
   useEffect(() => {
     appMounted = true

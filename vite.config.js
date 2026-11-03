@@ -3,9 +3,10 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { fileURLToPath, URL } from 'node:url'
 import markdown from './plugins/vite-plugin-markdown.js'
+import imageVariants from './plugins/vite-plugin-image-variants.js'
 
 export default defineConfig({
-  plugins: [markdown(), react(), tailwindcss()],
+  plugins: [markdown(), imageVariants(), react(), tailwindcss()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

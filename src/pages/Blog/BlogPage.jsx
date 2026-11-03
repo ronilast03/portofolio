@@ -117,7 +117,7 @@ export default function BlogPage() {
           <div className="grid gap-5 md:grid-cols-2">
             {list.map((post, i) => (
               <Reveal key={post.slug} delay={(i % 2) * 0.1} className="h-full">
-                <ArticleCard post={post} />
+                <ArticleCard post={post} headingAs="h2" />
               </Reveal>
             ))}
           </div>

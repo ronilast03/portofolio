@@ -6,6 +6,9 @@ import '@fontsource-variable/plus-jakarta-sans'
 import '@fontsource-variable/jetbrains-mono'
 import './index.css'
 import App from './App'
+import { initSpotlight } from './utils/spotlight'
+
+initSpotlight()
 
 const container = document.getElementById('root')
 const app = (

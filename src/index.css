@@ -315,3 +315,70 @@
 .theme-switching *:not(.theme-wipe) {
   transition: none !important;
 }
+
+/* ---------- Transisi kartu proyek -> halaman detail (View Transitions API) ---------- */
+/* Gambar proyek "terbang" dari kartu ke gambar utama halaman detail; sisa halaman memudar. */
+::view-transition-group(*) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+}
+/* Gambar tetap proporsional (tidak gepeng) selama ukurannya berubah. */
+::view-transition-old(*),
+::view-transition-new(*) {
+  height: 100%;
+  object-fit: cover;
+  overflow: clip;
+}
+
+/* ---------- Spotlight kartu ---------- */
+/* Cahaya lembut + garis tepi berpendar yang mengikuti kursor (posisi dari src/utils/spotlight.js). */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+@media (hover: hover) and (pointer: fine) {
+  .spotlight::before,
+  .spotlight::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  /* Cahaya di permukaan kartu (di belakang konten). */
+  .spotlight::before {
+    z-index: -1;
+    background: radial-gradient(
+      380px circle at var(--mx, 50%) var(--my, 50%),
+      color-mix(in srgb, var(--accent) 14%, transparent),
+      transparent 70%
+    );
+  }
+  /* Garis tepi yang menyala di dekat kursor. */
+  .spotlight::after {
+    z-index: 2;
+    padding: 1px;
+    background: radial-gradient(
+      240px circle at var(--mx, 50%) var(--my, 50%),
+      color-mix(in srgb, var(--accent) 70%, transparent),
+      transparent 70%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box exclude,
+      linear-gradient(#000 0 0);
+  }
+  .spotlight:hover::before,
+  .spotlight:hover::after {
+    opacity: 1;
+  }
+}

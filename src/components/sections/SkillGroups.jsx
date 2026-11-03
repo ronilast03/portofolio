@@ -4,7 +4,7 @@ export default function SkillGroups({ groups }) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       {groups.map((g, i) => (
-        <Reveal key={g.group} delay={i * 0.08} className="rounded-[10px] border border-line p-[18px]">
+        <Reveal key={g.group} delay={i * 0.08} className="spotlight rounded-[10px] border border-line p-[18px]">
           <h3 className="mb-3 flex items-center justify-between text-[15px] font-bold">
             {g.group}
             {g.note && <span className="font-mono text-[11.5px] font-normal text-muted">{g.note}</span>}

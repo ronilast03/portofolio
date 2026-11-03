@@ -1,7 +1,9 @@
-import { Link, useParams } from 'react-router'
+import { useParams } from 'react-router'
 import Seo from '@/components/common/Seo'
 import Icon from '@/components/common/Icon'
 import Image from '@/components/common/Image'
+import TransitionLink from '@/components/common/TransitionLink'
+import { projectImageTransition } from '@/utils/viewTransition'
 import Reveal from '@/components/common/Reveal'
 import PageHeader from '@/components/common/PageHeader'
 import PageTransition from '@/components/common/PageTransition'
@@ -51,7 +53,9 @@ export default function ProjectDetailPage() {
           src={project.thumbnail}
           alt={`Tampilan utama ${project.title}`}
           priority
+          sizes="(min-width: 1200px) 1140px, 100vw"
           className="aspect-16/8 rounded-[14px] border border-line"
+          wrapperStyle={{ viewTransitionName: projectImageTransition(project.slug) }}
         />
 
         <div className="grid gap-10 pt-10 pb-6 lg:grid-cols-[1fr_300px] lg:gap-16">
@@ -81,6 +85,7 @@ export default function ProjectDetailPage() {
                       <Image
                         src={g.src}
                         alt={g.caption}
+                        sizes="(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw"
                         className="aspect-16/10 rounded-[10px] border border-line"
                         imgClassName="group-hover:scale-103"
                       />
@@ -129,9 +134,9 @@ export default function ProjectDetailPage() {
         </div>
 
         <div className="pb-16">
-          <Link to="/projects" className="link-accent">
+          <TransitionLink to="/projects" className="link-accent">
             <Icon name="arrowLeft" /> Kembali ke semua proyek
-          </Link>
+          </TransitionLink>
         </div>
       </div>
     </PageTransition>

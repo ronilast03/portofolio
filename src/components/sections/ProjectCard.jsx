@@ -1,32 +1,36 @@
-import { Link } from 'react-router'
 import Image from '@/components/common/Image'
 import Icon from '@/components/common/Icon'
+import TransitionLink from '@/components/common/TransitionLink'
+import { projectImageTransition } from '@/utils/viewTransition'
 
-export default function ProjectCard({ project }) {
+export default function ProjectCard({ project, headingAs: Heading = 'h3', priority = false }) {
   return (
-    <Link
+    <TransitionLink
       to={`/projects/${project.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-[10px] border border-line bg-bg no-underline transition hover:-translate-y-0.5 hover:border-fg"
+      className="spotlight group flex h-full flex-col overflow-hidden rounded-[10px] border border-line bg-bg no-underline transition hover:-translate-y-0.5 hover:border-fg"
     >
       <Image
         src={project.thumbnail}
         alt={`Tampilan ${project.title}`}
         className="aspect-16/10 border-b border-line"
         imgClassName="group-hover:scale-104"
+        wrapperStyle={{ viewTransitionName: projectImageTransition(project.slug) }}
         width="640"
         height="400"
+        priority={priority}
+        sizes="(min-width: 1024px) 380px, (min-width: 768px) 50vw, 100vw"
       />
       <div className="flex flex-1 flex-col gap-2 p-4.5">
         <span className="eyebrow">
           {project.category} · {project.year}
         </span>
-        <h3 className="flex items-start justify-between gap-3 text-lg font-bold">
+        <Heading className="flex items-start justify-between gap-3 text-lg font-bold">
           {project.title}
           <Icon
             name="arrowRight"
             className="mt-1.5 size-4 shrink-0 text-muted transition duration-300 group-hover:translate-x-1 group-hover:text-accent"
           />
-        </h3>
+        </Heading>
         <p className="text-[14.5px] text-muted">{project.summary}</p>
         <div className="mt-auto flex flex-wrap gap-1.5 pt-2.5">
           {project.stack.slice(0, 3).map((s) => (
@@ -36,6 +40,6 @@ export default function ProjectCard({ project }) {
           ))}
         </div>
       </div>
-    </Link>
+    </TransitionLink>
   )
 }

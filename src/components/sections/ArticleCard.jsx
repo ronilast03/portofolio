@@ -23,13 +23,13 @@ export function ArticleCover({ post, large = false, priority = false }) {
         large ? 'aspect-[16/6] rounded-[14px] border border-line p-6' : 'aspect-[16/7] border-b border-line px-[18px] py-4'
       }`}
     >
+      {/* Teks dekoratif lewat ::before supaya tidak dibaca sebagai konten (dan tidak dinilai kontrasnya). */}
       <span
-        className={`pointer-events-none absolute -bottom-1 right-3.5 font-display transition duration-500 ease-out group-hover:-translate-y-1.5 group-hover:text-muted/40 leading-[0.9] font-extrabold tracking-[-0.04em] text-line select-none ${
+        data-text={post.tags[0] || post.category}
+        className={`pointer-events-none absolute -bottom-1 right-3.5 font-display before:content-[attr(data-text)] transition duration-500 ease-out group-hover:-translate-y-1.5 group-hover:text-muted/40 leading-[0.9] font-extrabold tracking-[-0.04em] text-line select-none ${
           large ? 'text-[clamp(56px,10vw,120px)]' : 'text-[clamp(40px,6vw,64px)]'
         }`}
-      >
-        {post.tags[0] || post.category}
-      </span>
+      />
       <span className="relative font-mono text-[11.5px] tracking-[0.06em] text-accent uppercase">
         {large ? post.tags.map((t) => `#${t}`).join('  ') : post.category}
       </span>
@@ -37,15 +37,15 @@ export function ArticleCover({ post, large = false, priority = false }) {
   )
 }
 
-export default function ArticleCard({ post }) {
+export default function ArticleCard({ post, headingAs: Heading = 'h3' }) {
   return (
     <Link
       to={`/blog/${post.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-[10px] border border-line no-underline transition hover:-translate-y-0.5 hover:border-fg"
+      className="spotlight group flex h-full flex-col overflow-hidden rounded-[10px] border border-line no-underline transition hover:-translate-y-0.5 hover:border-fg"
     >
       <ArticleCover post={post} />
       <div className="flex flex-1 flex-col gap-2 p-[18px]">
-        <h3 className="text-[19px] font-bold transition-colors group-hover:text-accent">{post.title}</h3>
+        <Heading className="text-[19px] font-bold transition-colors group-hover:text-accent">{post.title}</Heading>
         <p className="text-[14.5px] text-muted">{post.description}</p>
         <div className="mt-auto flex flex-wrap gap-2.5 pt-2 font-mono text-xs text-muted">
           <time dateTime={post.date}>{formatDate(post.date)}</time>

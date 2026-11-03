@@ -44,7 +44,7 @@ export default function PrivacyPolicyPage() {
           <h2>Menghapus data</h2>
           <p>
             Kamu dapat meminta penghapusan pesan yang pernah dikirim dengan menghubungi {profile.email} atau melalui{' '}
-            <Link to="/contact" className="text-accent">
+            <Link to="/contact" className="text-accent underline underline-offset-2">
               halaman kontak
             </Link>
             .

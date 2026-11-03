@@ -17,10 +17,10 @@ export default function Footer() {
         </div>
         <div>
           <h2 className="mb-3 font-mono text-[13px] font-medium tracking-[0.06em] text-muted uppercase">Halaman</h2>
-          <ul className="grid gap-2 text-[14.5px]">
+          <ul className="grid gap-0.5 text-[14.5px]">
             {navigation.slice(1).map((item) => (
               <li key={item.to}>
-                <Link to={item.to} className="no-underline hover:text-accent">
+                <Link to={item.to} className="inline-block py-1 no-underline hover:text-accent">
                   {item.label}
                 </Link>
               </li>
@@ -29,10 +29,10 @@ export default function Footer() {
         </div>
         <div>
           <h2 className="mb-3 font-mono text-[13px] font-medium tracking-[0.06em] text-muted uppercase">Sosial</h2>
-          <ul className="grid gap-2 text-[14.5px]">
+          <ul className="grid gap-0.5 text-[14.5px]">
             {socials.map((s) => (
               <li key={s.label}>
-                <a href={s.url} target="_blank" rel="noopener noreferrer" className="no-underline hover:text-accent">
+                <a href={s.url} target="_blank" rel="noopener noreferrer" className="inline-block py-1 no-underline hover:text-accent">
                   {s.label}
                 </a>
               </li>
@@ -45,7 +45,7 @@ export default function Footer() {
           <span>
             © {year} {profile.name}. Hak cipta dilindungi.
           </span>
-          <Link to="/privacy-policy" className="text-muted">
+          <Link to="/privacy-policy" className="inline-block py-0.5 text-muted">
             Kebijakan Privasi
           </Link>
         </div>

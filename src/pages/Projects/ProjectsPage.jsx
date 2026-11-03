@@ -62,7 +62,7 @@ export default function ProjectsPage() {
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {list.map((p, i) => (
               <Reveal key={p.slug} delay={(i % 3) * 0.1} className="h-full">
-                <ProjectCard project={p} />
+                <ProjectCard project={p} headingAs="h2" priority={i === 0} />
               </Reveal>
             ))}
           </div>

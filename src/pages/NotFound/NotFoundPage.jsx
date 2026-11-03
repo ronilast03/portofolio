@@ -1,9 +1,11 @@
 import { Link, useLocation } from 'react-router'
 import Seo from '@/components/common/Seo'
 import PageTransition from '@/components/common/PageTransition'
+import { useHydrated } from '@/hooks/useHydrated'
 
 export default function NotFoundPage() {
   const { pathname } = useLocation()
+  const hydrated = useHydrated()
 
   return (
     <PageTransition>
@@ -13,8 +15,14 @@ export default function NotFoundPage() {
           <p className="font-mono text-sm text-accent">404 · Halaman tidak ditemukan</p>
           <h1 className="mt-2 text-[clamp(36px,6vw,60px)] font-extrabold tracking-[-0.03em]">Halaman ini tidak ada.</h1>
           <p className="mt-3 text-muted">
-            Alamat <span className="font-mono break-all">{pathname}</span> mungkin salah ketik atau halamannya sudah
-            dipindahkan.
+            {hydrated ? (
+              <>
+                Alamat <span className="font-mono break-all">{pathname}</span> mungkin
+              </>
+            ) : (
+              'Alamatnya mungkin'
+            )}{' '}
+            salah ketik atau halamannya sudah dipindahkan.
           </p>
           <div className="mt-6 flex flex-wrap gap-2.5">
             <Link to="/" className="btn btn-primary">

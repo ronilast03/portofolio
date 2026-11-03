@@ -11,7 +11,7 @@ export default function AvailabilityTicket() {
   const close = useCallback(() => setOpen(false), [])
 
   return (
-    <aside aria-label="Ringkasan ketersediaan" className="min-w-0 overflow-hidden rounded-[14px] border border-line bg-surface">
+    <aside aria-label="Ringkasan ketersediaan" className="spotlight min-w-0 overflow-hidden rounded-[14px] border border-line bg-surface">
       <div className="flex items-center justify-between gap-3 border-b border-dashed border-line px-4.5 py-3.5">
         <span className="font-mono text-[13px] font-medium">{ticketId}</span>
         <span

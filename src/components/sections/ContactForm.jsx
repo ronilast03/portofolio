@@ -277,7 +277,7 @@ export default function ContactForm({ onClose, bordered = true }) {
       <div className="flex flex-wrap items-center justify-between gap-3.5 text-[13px] text-muted">
         <span>
           Data hanya dipakai untuk membalas tiket.{' '}
-          <Link to="/privacy-policy" className="text-accent" onClick={onClose}>
+          <Link to="/privacy-policy" className="text-accent underline underline-offset-2" onClick={onClose}>
             Kebijakan privasi
           </Link>
         </span>
