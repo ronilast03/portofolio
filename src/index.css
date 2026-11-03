@@ -300,3 +300,18 @@
     animation: none;
   }
 }
+
+/* ---------- Animasi ganti tema ---------- */
+/* Lingkaran yang membuka/menutup saat tema diganti (dianimasikan di useTheme.js). */
+.theme-wipe {
+  position: fixed;
+  z-index: 9999;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: scale(0);
+  will-change: transform, opacity;
+}
+.theme-switching,
+.theme-switching *:not(.theme-wipe) {
+  transition: none !important;
+}
