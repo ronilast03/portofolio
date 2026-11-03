@@ -1,9 +1,3 @@
-// =====================================================================
-// SERTIFIKAT — tampil di halaman About (semua) dan Home (yang featured: true).
-// date / expires: format "YYYY-MM". url: link verifikasi (isi null kalau tidak ada).
-// Gambar disimpan di public/images/certificates/ (lebar 1600px + versi -800.webp).
-// =====================================================================
-
 export const certificates = [
   {
     title: "Project Integration Methodology of Excellence (PIMOE)",

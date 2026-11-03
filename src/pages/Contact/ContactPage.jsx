@@ -4,6 +4,8 @@ import PageHeader from '@/components/common/PageHeader'
 import PageTransition from '@/components/common/PageTransition'
 import { breadcrumbJsonLd } from '@/components/common/Breadcrumb'
 import ContactForm from '@/components/sections/ContactForm'
+import { Link } from 'react-router'
+import Icon from '@/components/common/Icon'
 import { profile, socials } from '@/data/profile'
 
 const crumbs = [{ label: 'Home', to: '/' }, { label: 'Contact' }]
@@ -71,6 +73,21 @@ export default function ContactPage() {
                 {profile.location}
                 {profile.remote && ' · bisa remote'}
               </p>
+            </li>
+            <li className="py-4">
+              <Link
+                to="/kartu"
+                className="spotlight group flex items-center gap-3.5 rounded-[12px] border border-line p-3.5 no-underline hover:border-fg"
+              >
+                <span className="grid size-10 shrink-0 place-items-center rounded-[10px] bg-fg text-bg">
+                  <Icon name="qr" className="size-5" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block font-semibold">Kartu nama digital</span>
+                  <span className="block text-[13px] text-muted">Simpan kontak ke HP atau pindai QR code</span>
+                </span>
+                <Icon name="arrowRight" className="size-4 text-muted transition-transform group-hover:translate-x-0.5" />
+              </Link>
             </li>
           </ul>
 

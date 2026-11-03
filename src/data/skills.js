@@ -29,7 +29,6 @@ export const skillGroups = [
     items: [
       { name: 'Incident Management', level: 'menengah' },
       { name: 'Service Request', level: 'menengah' },
-      { name: 'Ivanti Neurons', level: 'menengah' },
       { name: 'Dasar ITIL 4', level: 'dasar' },
     ],
   },
@@ -44,3 +43,7 @@ export const skillGroups = [
     ],
   },
 ]
+
+// Pita tech stack di Home: otomatis dari semua skill di atas.
+// Mau urutan/isi sendiri? Ganti dengan array, contoh: ['React', 'Laravel', 'MySQL']
+export const techStack = skillGroups.flatMap((g) => g.items.map((i) => i.name))

@@ -3,6 +3,7 @@ import { profile } from '@/data/profile'
 import Icon from '@/components/common/Icon'
 import CvButton from '@/components/common/CvButton'
 import AvailabilityTicket from './AvailabilityTicket'
+import { latestChange } from '@/data/changelog'
 
 // Jeda animasi pembuka hero (ms). Lihat .hero-rise & .hero-word di index.css.
 const delay = (ms) => ({ '--d': `${ms}ms` })
@@ -17,7 +18,7 @@ export default function Hero() {
       aria-labelledby="hero-title"
       className="grid items-center gap-10 pt-14 pb-12 lg:grid-cols-[1.35fr_1fr] lg:gap-14 lg:pt-22 lg:pb-18"
     >
-      <div>
+      <div className="min-w-0">
         {profile.availability && (
           <p className="hero-rise mb-5 inline-flex items-center gap-2 text-[13px] text-muted">
             <span className={`size-2 rounded-full ${profile.available ? 'bg-ok ring-4 ring-ok/20' : 'bg-muted'}`} />
@@ -67,6 +68,20 @@ export default function Hero() {
         </div>
       </div>
       <div className="hero-rise min-w-0" style={delay(450)}>
+        {/* Perubahan terbaru dari src/data/changelog.js: berganti otomatis saat ada CHG baru. */}
+        {latestChange && (
+          <Link
+            to={`/changelog#${latestChange.id}`}
+            className="group mb-3 inline-flex max-w-full items-center gap-2 rounded-full border border-line bg-bg/80 py-1 pr-3 pl-1 text-[12.5px] text-muted no-underline backdrop-blur-sm transition hover:border-fg hover:text-fg"
+          >
+            <span className="shrink-0 rounded-full bg-accent px-2 py-0.5 text-[10.5px] font-semibold tracking-[0.04em] text-accent-fg uppercase">
+              Baru
+            </span>
+            <span className="shrink-0 font-mono text-[11.5px] whitespace-nowrap">{latestChange.id}</span>
+            <span className="min-w-0 truncate">{latestChange.title}</span>
+            <Icon name="arrowRight" className="size-3.5 shrink-0 transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        )}
         <AvailabilityTicket />
       </div>
     </section>

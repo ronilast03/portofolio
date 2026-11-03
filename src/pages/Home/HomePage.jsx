@@ -1,39 +1,46 @@
-import { Link } from 'react-router'
-import Seo from '@/components/common/Seo'
-import Icon from '@/components/common/Icon'
-import PageTransition from '@/components/common/PageTransition'
-import Reveal from '@/components/common/Reveal'
-import Hero from '@/components/sections/Hero'
-import HeroWave from '@/components/sections/HeroWave'
-import SectionHeading from '@/components/sections/SectionHeading'
-import ProjectCard from '@/components/sections/ProjectCard'
-import { ArticleRow } from '@/components/sections/ArticleCard'
-import ContactCta from '@/components/sections/ContactCta'
-import ShowreelSection from '@/components/sections/ShowreelSection'
-import Manifesto from '@/components/sections/Manifesto'
-import TicketLab from '@/components/sections/TicketLab'
-import Terminal from '@/components/sections/Terminal'
-import CertificateCard from '@/components/sections/CertificateCard'
-import { featuredCertificates } from '@/data/certificates'
-import { profile, socials } from '@/data/profile'
-import { site } from '@/data/site'
-import { featuredProjects } from '@/data/projects'
-import { latestPosts } from '@/utils/blog'
+import { Link } from "react-router";
+import Seo from "@/components/common/Seo";
+import Icon from "@/components/common/Icon";
+import PageTransition from "@/components/common/PageTransition";
+import Reveal from "@/components/common/Reveal";
+import Hero from "@/components/sections/Hero";
+import HeroWave from "@/components/sections/HeroWave";
+import SectionHeading from "@/components/sections/SectionHeading";
+import ProjectCard from "@/components/sections/ProjectCard";
+import { ArticleRow } from "@/components/sections/ArticleCard";
+import ContactCta from "@/components/sections/ContactCta";
+import ShowreelSection from "@/components/sections/ShowreelSection";
+import Manifesto from "@/components/sections/Manifesto";
+import TicketLab from "@/components/sections/TicketLab";
+import Terminal from "@/components/sections/Terminal";
+import TechMarquee from "@/components/sections/TechMarquee";
+import CertificateCard from "@/components/sections/CertificateCard";
+import { featuredCertificates } from "@/data/certificates";
+import { profile, socials } from "@/data/profile";
+import { site } from "@/data/site";
+import { featuredProjects } from "@/data/projects";
+import { latestPosts } from "@/utils/blog";
 
 export default function HomePage() {
-  const projects = featuredProjects(3)
-  const posts = latestPosts(3)
-  const certs = featuredCertificates(3)
+  const projects = featuredProjects(3);
+  const posts = latestPosts(3);
+  const certs = featuredCertificates(3);
 
   return (
     <PageTransition>
       <Seo
         path="/"
         jsonLd={[
-          { '@context': 'https://schema.org', '@type': 'WebSite', name: site.name, url: site.url, inLanguage: 'id' },
           {
-            '@context': 'https://schema.org',
-            '@type': 'Person',
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: site.name,
+            url: site.url,
+            inLanguage: "id",
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Person",
             name: profile.name,
             jobTitle: profile.role,
             url: site.url,
@@ -49,7 +56,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <hr className="border-line" />
+      <TechMarquee />
 
       <div className="container-page">
         <Manifesto />
@@ -69,9 +76,16 @@ export default function HomePage() {
             </Reveal>
             <Reveal as="dl" delay={0.15} className="border-t border-line">
               {profile.facts.map((f) => (
-                <div key={f.label} className="flex justify-between gap-4 border-b border-line py-3.25 text-[14.5px]">
+                <div
+                  key={f.label}
+                  className="flex justify-between gap-4 border-b border-line py-3.25 text-[14.5px]"
+                >
                   <dt className="text-muted">{f.label}</dt>
-                  <dd className={`text-right font-medium ${f.mono ? 'font-mono text-[13.5px]' : ''}`}>{f.value}</dd>
+                  <dd
+                    className={`text-right font-medium ${f.mono ? "font-mono text-[13.5px]" : ""}`}
+                  >
+                    {f.value}
+                  </dd>
                 </div>
               ))}
             </Reveal>
@@ -91,7 +105,12 @@ export default function HomePage() {
             </Reveal>
             <ul className="grid gap-5 md:grid-cols-3">
               {certs.map((c, i) => (
-                <Reveal as="li" key={c.title} delay={i * 0.1} className="h-full">
+                <Reveal
+                  as="li"
+                  key={c.title}
+                  delay={i * 0.1}
+                  className="h-full"
+                >
                   <CertificateCard cert={c} compact />
                 </Reveal>
               ))}
@@ -122,7 +141,11 @@ export default function HomePage() {
 
         <TicketLab />
 
-        <section id="terminal" aria-labelledby="terminal-title" className="pb-14 lg:pb-20">
+        <section
+          id="terminal"
+          aria-labelledby="terminal-title"
+          className="pb-14 lg:pb-20"
+        >
           <Reveal>
             <SectionHeading
               id="terminal-title"
@@ -157,5 +180,5 @@ export default function HomePage() {
         </Reveal>
       </div>
     </PageTransition>
-  )
+  );
 }

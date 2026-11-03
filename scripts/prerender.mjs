@@ -24,6 +24,8 @@ const PAGE_SOURCES = [
   [/^\/blog\/[^/]+$/, 'src/pages/Blog/BlogDetailPage.jsx'],
   [/^\/contact$/, 'src/pages/Contact/ContactPage.jsx'],
   [/^\/privacy-policy$/, 'src/pages/Legal/PrivacyPolicyPage.jsx'],
+  [/^\/changelog$/, 'src/pages/Changelog/ChangelogPage.jsx'],
+  [/^\/kartu$/, 'src/pages/Card/CardPage.jsx'],
 ]
 const manifestPath = path.join(dist, '.vite', 'manifest.json')
 const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8').catch(() => '{}'))

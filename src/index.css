@@ -450,3 +450,40 @@
 .term-link:hover {
   color: #b9c7ff;
 }
+
+/* ---------- Pita tech stack ---------- */
+.marquee-viewport {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 48s linear infinite;
+}
+.marquee-row {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track,
+.marquee.is-paused .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-viewport {
+    overflow-x: auto;
+  }
+  .marquee-track {
+    animation: none;
+  }
+  .marquee-toggle {
+    display: none;
+  }
+}

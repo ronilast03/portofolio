@@ -4,6 +4,7 @@ import { profile, socials, experience } from '@/data/profile'
 import { skillGroups } from '@/data/skills'
 import { projects } from '@/data/projects'
 import { certificates } from '@/data/certificates'
+import { changes } from '@/data/changelog'
 import { site } from '@/data/site'
 import { latestPosts } from '@/utils/blog'
 import { formatMonth } from '@/utils/date'
@@ -20,6 +21,8 @@ const PAGES = {
   contact: '/contact',
   sertifikat: '/about#sertifikat',
   lab: '/#lab',
+  changelog: '/changelog',
+  kartu: '/kartu',
 }
 
 const COMMANDS = {
@@ -31,8 +34,10 @@ const COMMANDS = {
   experience: 'pengalaman kerja',
   certs: 'sertifikat',
   blog: 'artikel terbaru',
+  changelog: 'perubahan terbaru di website ini',
   contact: 'cara menghubungi saya',
   cv: 'unduh CV',
+  card: 'kartu nama digital + QR code',
   ls: 'daftar halaman',
   cd: 'pindah halaman, contoh: cd blog',
   theme: 'ganti tema terang/gelap',
@@ -193,6 +198,24 @@ export default function Terminal() {
           ),
         )
         break
+      case 'changelog':
+        changes.slice(0, 5).forEach((c) =>
+          out.push(
+            line(
+              <>
+                <Acc>{c.id}</Acc> {c.title} <Dim>· {c.category} · {c.status}</Dim>
+              </>,
+            ),
+          ),
+        )
+        out.push(
+          line(
+            <>
+              <Dim>Selengkapnya:</Dim> <A to="/changelog">/changelog</A>
+            </>,
+          ),
+        )
+        break
       case 'contact':
         out.push(
           line(
@@ -215,6 +238,20 @@ export default function Terminal() {
           line(
             <>
               form{' '.repeat(5)}<A to="/contact">/contact</A> <Dim>· respons {profile.responseTime}</Dim>
+            </>,
+          ),
+        )
+        break
+      case 'card':
+        out.push(line(<Acc>{`┌${'─'.repeat(34)}┐`}</Acc>))
+        out.push(line(<Acc>{`│ ${profile.name.padEnd(33, '\u00a0')}│`}</Acc>))
+        out.push(line(<Acc>{`│ ${profile.role.slice(0, 33).padEnd(33, '\u00a0')}│`}</Acc>))
+        out.push(line(<Acc>{`│ ${profile.email.slice(0, 33).padEnd(33, '\u00a0')}│`}</Acc>))
+        out.push(line(<Acc>{`└${'─'.repeat(34)}┘`}</Acc>))
+        out.push(
+          line(
+            <>
+              <Dim>Simpan kontak & QR code:</Dim> <A to="/kartu">/kartu</A>
             </>,
           ),
         )

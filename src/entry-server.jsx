@@ -6,6 +6,7 @@ import { SeoContext, seoToHtml } from '@/components/common/Seo'
 import { projects } from '@/data/projects'
 import { site } from '@/data/site'
 import { posts } from '@/utils/blog'
+import { latestChange } from '@/data/changelog'
 
 /** Dipanggil oleh scripts/prerender.mjs untuk setiap URL. */
 export function render(url) {
@@ -34,6 +35,8 @@ export function getRoutes() {
     { path: '/blog', priority: '0.8', lastmod: latestPost },
     ...posts.map((p) => ({ path: `/blog/${p.slug}`, priority: '0.7', lastmod: lastmodOf(p) })),
     { path: '/contact', priority: '0.6' },
+    { path: '/changelog', priority: '0.4', lastmod: latestChange?.date },
+    { path: '/kartu', priority: '0.4' },
     { path: '/privacy-policy', priority: '0.3' },
   ]
 }

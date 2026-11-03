@@ -2,6 +2,7 @@ import { Link } from 'react-router'
 import { navigation } from '@/data/site'
 import { profile, socials } from '@/data/profile'
 import { Logo } from './Navbar'
+import { latestChange } from '@/data/changelog'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -45,9 +46,16 @@ export default function Footer() {
           <span>
             © {year} {profile.name}. Hak cipta dilindungi.
           </span>
-          <Link to="/privacy-policy" className="inline-block py-0.5 text-muted">
-            Kebijakan Privasi
-          </Link>
+          <span className="flex flex-wrap gap-x-5 gap-y-1">
+            {latestChange && (
+              <Link to="/changelog" className="inline-block py-0.5 font-mono text-[12px] text-muted">
+                Changelog · {latestChange.id}
+              </Link>
+            )}
+            <Link to="/privacy-policy" className="inline-block py-0.5 text-muted">
+              Kebijakan Privasi
+            </Link>
+          </span>
         </div>
       </div>
     </footer>

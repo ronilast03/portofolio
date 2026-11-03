@@ -11,6 +11,8 @@ const BlogPage = lazyPage(() => import('@/pages/Blog/BlogPage'))
 const BlogDetailPage = lazyPage(() => import('@/pages/Blog/BlogDetailPage'))
 const ContactPage = lazyPage(() => import('@/pages/Contact/ContactPage'))
 const PrivacyPolicyPage = lazyPage(() => import('@/pages/Legal/PrivacyPolicyPage'))
+const ChangelogPage = lazyPage(() => import('@/pages/Changelog/ChangelogPage'))
+const CardPage = lazyPage(() => import('@/pages/Card/CardPage'))
 const NotFoundPage = lazyPage(() => import('@/pages/NotFound/NotFoundPage'))
 
 const ALL_PAGES = [
@@ -22,6 +24,8 @@ const ALL_PAGES = [
   BlogDetailPage,
   ContactPage,
   PrivacyPolicyPage,
+  ChangelogPage,
+  CardPage,
   NotFoundPage,
 ]
 
@@ -36,6 +40,8 @@ export function pageFor(pathname = '/') {
   if (/^\/blog\/[^/]+$/.test(path)) return BlogDetailPage
   if (path === '/contact') return ContactPage
   if (path === '/privacy-policy') return PrivacyPolicyPage
+  if (path === '/changelog') return ChangelogPage
+  if (path === '/kartu') return CardPage
   return NotFoundPage
 }
 
@@ -58,6 +64,8 @@ export default function AppRoutes() {
         <Route path="blog/:slug" element={<BlogDetailPage />} />
         <Route path="contact" element={<ContactPage />} />
         <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+        <Route path="changelog" element={<ChangelogPage />} />
+        <Route path="kartu" element={<CardPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

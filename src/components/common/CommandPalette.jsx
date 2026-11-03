@@ -34,6 +34,8 @@ export default function CommandPalette() {
       { label: 'Sertifikat', hint: '/about#sertifikat', to: '/about#sertifikat', keywords: 'sertifikat cisco dicoding udemy' },
       { label: 'Lab interaktif', hint: '/#lab', to: '/#lab', keywords: 'lab triase tiket itsm prioritas' },
       { label: 'Terminal', hint: '/#terminal', to: '/#terminal', keywords: 'terminal command cli' },
+      { label: 'Kartu nama digital', hint: '/kartu', to: '/kartu', keywords: 'kartu nama qr code vcard kontak simpan card' },
+      { label: 'Changelog', hint: '/changelog', to: '/changelog', keywords: 'changelog perubahan riwayat versi chg' },
       { label: 'Kebijakan privasi', hint: '/privacy-policy', to: '/privacy-policy', keywords: 'privacy' },
     ].map((p) => ({ ...p, id: `page-${p.to}`, icon: 'page', group: 'Halaman' }))
 
