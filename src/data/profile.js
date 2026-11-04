@@ -15,7 +15,7 @@ export const profile = {
     "Saya terbiasa di dua sisi: menulis kode untuk website dan aplikasi web, lalu menangani tiket di service desk. Dari situ saya belajar bahwa software yang baik harus enak dipakai dan mudah didukung.",
   // Paragraf biografi di halaman About.
   bio: [
-    "Halo, saya Roni Lesmana. Saya tertarik pada dunia digital sejak lama, berawal dari membuat halaman web sederhana sampai membangun aplikasi kasir untuk usaha kecil.",
+    "Halo, saya Roni Lesmana. Saya sarjana Sistem Informasi dengan kompetensi yang kuat dalam pengembangan, pengelolaan, dan pemeliharaan sistem informasi (Staf TI / Dukungan Aplikasi). Pengalaman praktis dalam manajemen basis data relasional, implementasi hak akses keamanan sistem (RBAC). Mampu menganalisis persyaratan sistem, mendigitalisasi alur kerja administratif.",
     "Saat ini saya mengikuti program MagangHub di PT. Pupuk Sriwidjaja Palembang, Departemen Teknologi Informasi, Bagian Layanan TI. Setiap hari saya bekerja dengan tiket incident dan service request, menulis dokumentasi, dan belajar bagaimana tim IT menjaga layanan tetap berjalan.",
     "Di luar itu saya terus mengasah kemampuan web development dengan React dan Laravel, serta berbagi materi pemrograman web lewat konten edukasi.",
   ],
@@ -35,7 +35,8 @@ export const profile = {
     { label: "Sedang", value: "MagangHub ITSM" },
   ],
   // Kalimat besar di section "Prinsip kerja" pada Home. Kata di dalam *...* dibuat miring.
-  manifesto: "Saya membangun aplikasi dari dua sisi: *menulis kodenya*, lalu *melayani penggunanya*.",
+  manifesto:
+    "Saya membangun aplikasi dari dua sisi: *menulis kodenya*, lalu *melayani penggunanya*.",
   focusAreas: ["Website", "Aplikasi web", "ITSM"],
   interests: [
     "Pengembangan web",

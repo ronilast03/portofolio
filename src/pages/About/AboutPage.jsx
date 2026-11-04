@@ -3,12 +3,13 @@ import Seo from '@/components/common/Seo'
 import PageHeader from '@/components/common/PageHeader'
 import PageTransition from '@/components/common/PageTransition'
 import CvButton from '@/components/common/CvButton'
-import Image from '@/components/common/Image'
 import Reveal from '@/components/common/Reveal'
 import { breadcrumbJsonLd } from '@/components/common/Breadcrumb'
 import Timeline from '@/components/sections/Timeline'
 import SkillGroups from '@/components/sections/SkillGroups'
 import CertificateCard from '@/components/sections/CertificateCard'
+import Lanyard from '@/components/common/Lanyard'
+import ProfileBadge from '@/components/sections/ProfileBadge'
 import { certificates } from '@/data/certificates'
 import { education, experience, profile } from '@/data/profile'
 import { skillGroups } from '@/data/skills'
@@ -42,21 +43,20 @@ export default function AboutPage() {
         jsonLd={breadcrumbJsonLd(crumbs)}
       />
       <div className="container-page">
-        <PageHeader title="Tentang saya" description="Latar belakang, pendidikan, pengalaman, sertifikat, dan keahlian." breadcrumb={crumbs} />
-
-        <div className="grid gap-10 pb-14 lg:grid-cols-[220px_1fr] lg:gap-16">
-          {profile.photo ? (
-            <Image src={profile.photo} alt={`Foto ${profile.name}`} priority className=" w-full max-w-55 rounded-2xl border border-line" />
-          ) : (
-            <div
-              role="img"
-              aria-label={`Tempat foto profil ${profile.name}`}
-              className="grid aspect-square w-full max-w-55 place-items-center rounded-2xl border border-line bg-surface font-display text-[56px] font-extrabold tracking-[-0.04em] text-muted"
-            >
-              {profile.initials}
-            </div>
-          )}
-          <div className="max-w-[65ch] space-y-4 text-[17px]">
+        {/* Layar besar: judul + bio di kiri, kartu identitas di kanan tergantung dari navbar.
+            HP: judul, lalu kartu, lalu bio. */}
+        <div className="grid pb-14 lg:grid-cols-[minmax(0,1fr)_300px] lg:grid-rows-[auto_1fr] lg:gap-x-16">
+          <div className="lg:col-start-1 lg:row-start-1">
+            <PageHeader title="Tentang saya" description="Latar belakang, pendidikan, pengalaman, sertifikat, dan keahlian." breadcrumb={crumbs} />
+          </div>
+          <Lanyard
+            strap={`${profile.name.toUpperCase()} · ITSM · WEB`}
+            rest={2}
+            className="mb-10 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mb-0"
+          >
+            <ProfileBadge />
+          </Lanyard>
+          <div className="max-w-[65ch] space-y-4 text-[17px] lg:col-start-1 lg:row-start-2">
             {profile.bio.map((p) => (
               <p key={p}>{p}</p>
             ))}

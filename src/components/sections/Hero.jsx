@@ -16,7 +16,7 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-title"
-      className="grid items-center gap-10 pt-14 pb-12 lg:grid-cols-[1.35fr_1fr] lg:gap-14 lg:pt-22 lg:pb-18"
+      className="hero-fold grid items-center gap-10 pt-14 pb-12 lg:grid-cols-[1.35fr_1fr] lg:content-center lg:gap-14 lg:py-8"
     >
       <div className="min-w-0">
         {profile.availability && (
@@ -28,7 +28,7 @@ export default function Hero() {
         <h1
           id="hero-title"
           aria-label={profile.name}
-          className="display-serif text-[clamp(60px,10.5vw,124px)] leading-[0.95]"
+          className="display-serif text-[clamp(60px,min(10.5vw,16svh),124px)] leading-[0.95]"
         >
           {/* Kata terakhir nama dibuat miring, gaya editorial */}
           {words.map((word, i) => (
@@ -67,22 +67,25 @@ export default function Hero() {
           <CvButton />
         </div>
       </div>
+      {/* Mesin antrean + struk (kartu ketersediaan) */}
       <div className="hero-rise min-w-0" style={delay(450)}>
+        <AvailabilityTicket />
         {/* Perubahan terbaru dari src/data/changelog.js: berganti otomatis saat ada CHG baru. */}
         {latestChange && (
-          <Link
-            to={`/changelog#${latestChange.id}`}
-            className="group mb-3 inline-flex max-w-full items-center gap-2 rounded-full border border-line bg-bg/80 py-1 pr-3 pl-1 text-[12.5px] text-muted no-underline backdrop-blur-sm transition hover:border-fg hover:text-fg"
-          >
-            <span className="shrink-0 rounded-full bg-accent px-2 py-0.5 text-[10.5px] font-semibold tracking-[0.04em] text-accent-fg uppercase">
-              Baru
-            </span>
-            <span className="shrink-0 font-mono text-[11.5px] whitespace-nowrap">{latestChange.id}</span>
-            <span className="min-w-0 truncate">{latestChange.title}</span>
-            <Icon name="arrowRight" className="size-3.5 shrink-0 transition-transform group-hover:translate-x-0.5" />
-          </Link>
+          <div className="hero-pill mt-6 flex justify-center">
+            <Link
+              to={`/changelog#${latestChange.id}`}
+              className="group inline-flex max-w-full items-center gap-2 rounded-full border border-line bg-bg/80 py-1 pr-3 pl-1 text-[12.5px] text-muted no-underline backdrop-blur-sm transition hover:border-fg hover:text-fg"
+            >
+              <span className="shrink-0 rounded-full bg-accent px-2 py-0.5 text-[10.5px] font-semibold tracking-[0.04em] text-accent-fg uppercase">
+                Baru
+              </span>
+              <span className="shrink-0 font-mono text-[11.5px] whitespace-nowrap">{latestChange.id}</span>
+              <span className="min-w-0 truncate">{latestChange.title}</span>
+              <Icon name="arrowRight" className="size-3.5 shrink-0 transition-transform group-hover:translate-x-0.5" />
+            </Link>
+          </div>
         )}
-        <AvailabilityTicket />
       </div>
     </section>
   )

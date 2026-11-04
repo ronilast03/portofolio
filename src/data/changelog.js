@@ -10,6 +10,35 @@
 
 export const changes = [
   {
+    id: 'CHG-0018',
+    date: '2026-11-04',
+    title: 'Mesin antrean di hero, kartu identitas di About',
+    type: 'Standard',
+    category: 'Desain',
+    risk: 'Rendah',
+    status: 'Implemented',
+    summary: 'Kartu kolaborasi diganti mesin antrean service desk yang mencetak struk, dan lanyard dipindah ke foto profil di About.',
+    items: [
+      'Struk "tercetak" saat halaman dibuka; tombol mencetak nomor antrean berikutnya lalu membuka form tiket',
+      'Foto profil kini berupa kartu identitas yang tergantung di tali dan bisa ditarik',
+    ],
+  },
+  {
+    id: 'CHG-0017',
+    date: '2026-11-04',
+    title: 'Kartu kolaborasi bergaya lanyard',
+    type: 'Standard',
+    category: 'Desain',
+    risk: 'Rendah',
+    status: 'Implemented',
+    summary: 'Kartu "Permintaan kolaborasi" di hero kini tergantung di tali seperti ID card, dengan sentuhan tiket.',
+    items: [
+      'Berayun pelan saat halaman dibuka, bisa ditarik dan memantul kembali',
+      'Garis sobekan tiket dan barcode',
+      'Diam untuk pengguna dengan mode kurangi gerakan',
+    ],
+  },
+  {
     id: 'CHG-0016',
     date: '2026-11-03',
     title: 'Merapikan gaya visual',
