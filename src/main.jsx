@@ -34,7 +34,9 @@ const prefetchRest = () => {
 preloadRoute(window.location.pathname)
   .catch(() => {})
   .finally(() => {
-    if (container.firstElementChild) hydrateRoot(container, app)
+    // 404.html (data-fallback) dipakai untuk semua alamat yang tidak ada, jadi isinya tidak selalu cocok
+    // dengan alamat yang dibuka (misalnya menu aktif di navbar). Render ulang saja, jangan hydrate.
+    if (container.firstElementChild && !container.hasAttribute('data-fallback')) hydrateRoot(container, app)
     else createRoot(container).render(app)
     if (document.readyState === 'complete') prefetchRest()
     else window.addEventListener('load', prefetchRest, { once: true })

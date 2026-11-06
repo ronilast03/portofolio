@@ -5,6 +5,7 @@ import { lazyPage } from '@/utils/lazyPage'
 // Setiap halaman jadi file JavaScript sendiri, jadi pengunjung hanya mengunduh halaman yang dibuka.
 const HomePage = lazyPage(() => import('@/pages/Home/HomePage'))
 const AboutPage = lazyPage(() => import('@/pages/About/AboutPage'))
+const ServicesPage = lazyPage(() => import('@/pages/Services/ServicesPage'))
 const ProjectsPage = lazyPage(() => import('@/pages/Projects/ProjectsPage'))
 const ProjectDetailPage = lazyPage(() => import('@/pages/Projects/ProjectDetailPage'))
 const BlogPage = lazyPage(() => import('@/pages/Blog/BlogPage'))
@@ -13,11 +14,13 @@ const ContactPage = lazyPage(() => import('@/pages/Contact/ContactPage'))
 const PrivacyPolicyPage = lazyPage(() => import('@/pages/Legal/PrivacyPolicyPage'))
 const ChangelogPage = lazyPage(() => import('@/pages/Changelog/ChangelogPage'))
 const CardPage = lazyPage(() => import('@/pages/Card/CardPage'))
+const CmdbPage = lazyPage(() => import('@/pages/Cmdb/CmdbPage'))
 const NotFoundPage = lazyPage(() => import('@/pages/NotFound/NotFoundPage'))
 
 const ALL_PAGES = [
   HomePage,
   AboutPage,
+  ServicesPage,
   ProjectsPage,
   ProjectDetailPage,
   BlogPage,
@@ -26,6 +29,7 @@ const ALL_PAGES = [
   PrivacyPolicyPage,
   ChangelogPage,
   CardPage,
+  CmdbPage,
   NotFoundPage,
 ]
 
@@ -34,6 +38,7 @@ export function pageFor(pathname = '/') {
   const path = String(pathname).split(/[?#]/)[0].replace(/\/+$/, '') || '/'
   if (path === '/') return HomePage
   if (path === '/about') return AboutPage
+  if (path === '/layanan') return ServicesPage
   if (path === '/projects') return ProjectsPage
   if (/^\/projects\/[^/]+$/.test(path)) return ProjectDetailPage
   if (path === '/blog') return BlogPage
@@ -42,6 +47,7 @@ export function pageFor(pathname = '/') {
   if (path === '/privacy-policy') return PrivacyPolicyPage
   if (path === '/changelog') return ChangelogPage
   if (path === '/kartu') return CardPage
+  if (path === '/cmdb') return CmdbPage
   return NotFoundPage
 }
 
@@ -58,6 +64,7 @@ export default function AppRoutes() {
       <Route element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="about" element={<AboutPage />} />
+        <Route path="layanan" element={<ServicesPage />} />
         <Route path="projects" element={<ProjectsPage />} />
         <Route path="projects/:slug" element={<ProjectDetailPage />} />
         <Route path="blog" element={<BlogPage />} />
@@ -66,6 +73,7 @@ export default function AppRoutes() {
         <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="changelog" element={<ChangelogPage />} />
         <Route path="kartu" element={<CardPage />} />
+        <Route path="cmdb" element={<CmdbPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

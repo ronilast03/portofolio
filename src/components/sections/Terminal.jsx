@@ -4,6 +4,8 @@ import { profile, socials, experience } from '@/data/profile'
 import { skillGroups } from '@/data/skills'
 import { projects } from '@/data/projects'
 import { certificates } from '@/data/certificates'
+import { services } from '@/data/services'
+import { cmdb } from '@/utils/cmdb'
 import { changes } from '@/data/changelog'
 import { site } from '@/data/site'
 import { latestPosts } from '@/utils/blog'
@@ -16,6 +18,7 @@ const PROMPT = 'tamu@ronilesmana:~$'
 const PAGES = {
   home: '/',
   about: '/about',
+  layanan: '/layanan',
   projects: '/projects',
   blog: '/blog',
   contact: '/contact',
@@ -23,6 +26,7 @@ const PAGES = {
   lab: '/#lab',
   changelog: '/changelog',
   kartu: '/kartu',
+  cmdb: '/cmdb',
 }
 
 const COMMANDS = {
@@ -30,6 +34,8 @@ const COMMANDS = {
   whoami: 'siapa saya',
   about: 'ringkasan singkat',
   skills: 'keahlian dan levelnya',
+  cmdb: 'peta relasi teknologi dan proyek',
+  layanan: 'katalog layanan yang bisa diajukan',
   projects: 'daftar proyek (open <nomor> untuk membuka)',
   experience: 'pengalaman kerja',
   certs: 'sertifikat',
@@ -142,6 +148,47 @@ export default function Terminal() {
             )
           })
         })
+        break
+      case 'cmdb':
+        ;[...cmdb.techs]
+          .sort((a, b) => cmdb.usage(b) - cmdb.usage(a))
+          .forEach((t) =>
+            out.push(
+              line(
+                <>
+                  <Acc>{t.name.padEnd(14, '\u00a0')}</Acc>
+                  <Dim>{'■ '.repeat(cmdb.usage(t)) || '· '}</Dim>
+                  <Dim>{cmdb.usage(t)} proyek</Dim>
+                </>,
+              ),
+            ),
+          )
+        out.push(
+          line(
+            <>
+              <Dim>Peta relasi lengkap:</Dim> <A to="/cmdb">/cmdb</A>
+            </>,
+          ),
+        )
+        break
+      case 'layanan':
+      case 'services':
+        services.forEach((s) =>
+          out.push(
+            line(
+              <>
+                <Dim>{s.id}</Dim> <A to="/layanan">{s.name}</A> <Dim>· {s.estimate}</Dim>
+              </>,
+            ),
+          ),
+        )
+        out.push(
+          line(
+            <>
+              <Dim>Ajukan permintaan di</Dim> <A to="/layanan">/layanan</A>
+            </>,
+          ),
+        )
         break
       case 'projects':
         projects.forEach((p, i) =>

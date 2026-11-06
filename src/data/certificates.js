@@ -33,6 +33,8 @@ export const certificates = [
     credentialId: "53XENGQVRXRN",
     url: "https://www.dicoding.com/certificates/53XENGQVRXRN",
     image: "/images/certificates/dicoding-react.webp",
+    // Teknologi yang dibuktikan sertifikat ini (dipakai di Peta keahlian /cmdb)
+    skills: ["React"],
     featured: true,
   },
   {
@@ -42,6 +44,7 @@ export const certificates = [
     credentialId: "UC-c68d69f9-68e1-4003-96ef-2c2a35e147d9",
     url: "https://ude.my/UC-c68d69f9-68e1-4003-96ef-2c2a35e147d9",
     image: "/images/certificates/udemy-website-basic.webp",
+    skills: ["HTML & CSS"],
   },
 ];
 

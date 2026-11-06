@@ -18,6 +18,7 @@ await preloadAll()
 const PAGE_SOURCES = [
   [/^\/$/, 'src/pages/Home/HomePage.jsx'],
   [/^\/about$/, 'src/pages/About/AboutPage.jsx'],
+  [/^\/layanan$/, 'src/pages/Services/ServicesPage.jsx'],
   [/^\/projects$/, 'src/pages/Projects/ProjectsPage.jsx'],
   [/^\/projects\/[^/]+$/, 'src/pages/Projects/ProjectDetailPage.jsx'],
   [/^\/blog$/, 'src/pages/Blog/BlogPage.jsx'],
@@ -26,6 +27,7 @@ const PAGE_SOURCES = [
   [/^\/privacy-policy$/, 'src/pages/Legal/PrivacyPolicyPage.jsx'],
   [/^\/changelog$/, 'src/pages/Changelog/ChangelogPage.jsx'],
   [/^\/kartu$/, 'src/pages/Card/CardPage.jsx'],
+  [/^\/cmdb$/, 'src/pages/Cmdb/CmdbPage.jsx'],
 ]
 const manifestPath = path.join(dist, '.vite', 'manifest.json')
 const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8').catch(() => '{}'))
@@ -60,8 +62,11 @@ for (const route of routes) {
   console.log(`  prerender  ${route.path}`)
 }
 
-// 404 untuk hosting statis (Netlify, dsb.)
-await fs.writeFile(path.join(dist, '404.html'), fill(render('/404'), '/404'))
+// 404 untuk hosting statis (Vercel, Netlify, dsb.).
+// File ini dipakai untuk SEMUA alamat yang tidak ada, jadi ditandai data-fallback:
+// di browser halaman dirender ulang (bukan di-hydrate) agar cocok dengan alamat sebenarnya.
+const notFound = fill(render('/404'), '/404').replace('<div id="root">', '<div id="root" data-fallback>')
+await fs.writeFile(path.join(dist, '404.html'), notFound)
 console.log('  prerender  /404.html')
 
 const today = new Date().toISOString().slice(0, 10)

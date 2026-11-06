@@ -15,6 +15,9 @@ const GROUP_LIMIT_EMPTY = 4 // saat kolom pencarian masih kosong, tiap grup diba
  * Command palette (Ctrl+K / ⌘K / "/"): cari halaman, proyek, artikel, dan jalankan aksi cepat.
  * Memakai <dialog> bawaan browser (fokus terkunci, Esc menutup) dan pola ARIA combobox + listbox.
  */
+// Kata kunci tambahan untuk menu utama (supaya mudah dicari)
+const NAV_KEYWORDS = { '/layanan': 'layanan jasa service catalog katalog website aplikasi kasir umkm service desk pesan' }
+
 export default function CommandPalette() {
   const dialogRef = useRef(null)
   const inputRef = useRef(null)
@@ -30,12 +33,13 @@ export default function CommandPalette() {
   // ---------- Daftar perintah ----------
   const groups = useMemo(() => {
     const pages = [
-      ...navigation.map((n) => ({ label: n.label, hint: n.to, to: n.to, keywords: '' })),
+      ...navigation.map((n) => ({ label: n.label, hint: n.to, to: n.to, keywords: NAV_KEYWORDS[n.to] ?? '' })),
       { label: 'Sertifikat', hint: '/about#sertifikat', to: '/about#sertifikat', keywords: 'sertifikat cisco dicoding udemy' },
       { label: 'Lab interaktif', hint: '/#lab', to: '/#lab', keywords: 'lab triase tiket itsm prioritas' },
       { label: 'Terminal', hint: '/#terminal', to: '/#terminal', keywords: 'terminal command cli' },
       { label: 'Kartu nama digital', hint: '/kartu', to: '/kartu', keywords: 'kartu nama qr code vcard kontak simpan card' },
       { label: 'Changelog', hint: '/changelog', to: '/changelog', keywords: 'changelog perubahan riwayat versi chg' },
+      { label: 'Peta keahlian (CMDB)', hint: '/cmdb', to: '/cmdb', keywords: 'cmdb peta keahlian skill teknologi relasi ci configuration item' },
       { label: 'Kebijakan privasi', hint: '/privacy-policy', to: '/privacy-policy', keywords: 'privacy' },
     ].map((p) => ({ ...p, id: `page-${p.to}`, icon: 'page', group: 'Halaman' }))
 

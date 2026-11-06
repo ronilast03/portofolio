@@ -111,9 +111,10 @@ function TicketReceipt({ ticket, onNew, onClose }) {
  * Form permintaan bergaya tiket service desk (FR-028 s/d FR-032).
  * Dipakai di halaman Contact dan di dialog "Buat permintaan" pada hero.
  */
-export default function ContactForm({ onClose, bordered = true }) {
+export default function ContactForm({ onClose, bordered = true, initial }) {
   const uid = useId()
-  const [values, setValues] = useState(EMPTY)
+  // initial: isi awal, misalnya dari katalog layanan ({ category, subject })
+  const [values, setValues] = useState(() => ({ ...EMPTY, ...initial }))
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState({ type: 'idle', message: '' })
   const [ticket, setTicket] = useState(null)

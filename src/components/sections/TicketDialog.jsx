@@ -6,7 +6,7 @@ import ContactForm from './ContactForm'
  * Dialog "Buat permintaan" (memakai elemen <dialog> bawaan browser:
  * fokus terkunci di dalam dialog, tombol Esc menutup, dan aman untuk pembaca layar).
  */
-export default function TicketDialog({ open, onClose }) {
+export default function TicketDialog({ open, onClose, initial }) {
   const ref = useRef(null)
   const [session, setSession] = useState(0)
 
@@ -57,7 +57,7 @@ export default function TicketDialog({ open, onClose }) {
             <Icon name="close" className="size-4" />
           </button>
         </div>
-        {open && <ContactForm key={session} bordered={false} onClose={() => ref.current?.close()} />}
+        {open && <ContactForm key={session} bordered={false} initial={initial} onClose={() => ref.current?.close()} />}
       </div>
     </dialog>
   )

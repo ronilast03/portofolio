@@ -30,6 +30,7 @@ export function getRoutes() {
   return [
     { path: '/', priority: '1.0', lastmod: latestPost },
     { path: '/about', priority: '0.8' },
+    { path: '/layanan', priority: '0.8' },
     { path: '/projects', priority: '0.8' },
     ...projects.map((p) => ({ path: `/projects/${p.slug}`, priority: '0.7' })),
     { path: '/blog', priority: '0.8', lastmod: latestPost },
@@ -37,6 +38,7 @@ export function getRoutes() {
     { path: '/contact', priority: '0.6' },
     { path: '/changelog', priority: '0.4', lastmod: latestChange?.date },
     { path: '/kartu', priority: '0.4' },
+    { path: '/cmdb', priority: '0.5' },
     { path: '/privacy-policy', priority: '0.3' },
   ]
 }

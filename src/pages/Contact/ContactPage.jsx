@@ -4,9 +4,11 @@ import PageHeader from '@/components/common/PageHeader'
 import PageTransition from '@/components/common/PageTransition'
 import { breadcrumbJsonLd } from '@/components/common/Breadcrumb'
 import ContactForm from '@/components/sections/ContactForm'
-import { Link } from 'react-router'
+import { Link, useSearchParams } from 'react-router'
 import Icon from '@/components/common/Icon'
 import { profile, socials } from '@/data/profile'
+import { getServiceBySlug, ticketPrefill } from '@/data/services'
+import { useHydrated } from '@/hooks/useHydrated'
 
 const crumbs = [{ label: 'Home', to: '/' }, { label: 'Contact' }]
 const smallBtn = 'cursor-pointer rounded-[7px] border border-line px-2.5 py-1 text-[12.5px] font-medium no-underline hover:border-fg'
@@ -30,6 +32,10 @@ function CopyEmail() {
 }
 
 export default function ContactPage() {
+  const [params] = useSearchParams()
+  const hydrated = useHydrated()
+  const service = getServiceBySlug(params.get('layanan'))
+
   return (
     <PageTransition>
       <Seo
@@ -91,7 +97,8 @@ export default function ContactPage() {
             </li>
           </ul>
 
-          <ContactForm />
+          {/* /contact?layanan=<slug>: form terisi layanan yang dipilih (setelah hydrate, agar cocok dengan HTML prerender) */}
+          <ContactForm key={service && hydrated ? service.slug : 'umum'} initial={hydrated ? ticketPrefill(service) : undefined} />
         </div>
       </div>
     </PageTransition>

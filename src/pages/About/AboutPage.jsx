@@ -3,6 +3,7 @@ import Seo from '@/components/common/Seo'
 import PageHeader from '@/components/common/PageHeader'
 import PageTransition from '@/components/common/PageTransition'
 import CvButton from '@/components/common/CvButton'
+import Icon from '@/components/common/Icon'
 import Reveal from '@/components/common/Reveal'
 import { breadcrumbJsonLd } from '@/components/common/Breadcrumb'
 import Timeline from '@/components/sections/Timeline'
@@ -82,6 +83,9 @@ export default function AboutPage() {
         )}
         <Row id="skill-title" title="Keahlian">
           <SkillGroups groups={skillGroups} />
+          <Link to="/cmdb" className="link-accent mt-6">
+            Lihat peta keahlian (CMDB) <Icon name="arrowRight" />
+          </Link>
         </Row>
         <Row id="interest-title" title="Minat">
           <ul className="flex flex-wrap gap-2">

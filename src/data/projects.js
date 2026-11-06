@@ -4,6 +4,18 @@
 // - thumbnail: taruh gambar di public/images/projects/ (disarankan .webp, rasio 16:10)
 // - gallery  : daftar gambar tambahan untuk halaman detail (boleh kosong)
 // - github / demo: isi null jika tidak ada
+//
+// Studi kasus bergaya change request (ITSM). Semua opsional: bagian yang kosong tidak ditampilkan.
+// - changeId   : nomor change, urut dari proyek paling lama (CHG-PRJ-0001, CHG-PRJ-0002, ...)
+// - changeType : "Standard" (rutin, risiko kecil) | "Normal" (perlu perencanaan)
+// - risk       : "Rendah" | "Sedang" | "Tinggi" (risiko keseluruhan)
+// - status     : "Implemented" (default) | "In progress"
+// - stage      : untuk "In progress": jumlah tahap yang sudah selesai (0-7)
+// - outOfScope : hal yang sengaja TIDAK dikerjakan
+// - risks      : [{ risk, level: "Rendah" | "Sedang" | "Tinggi", mitigation }]
+// - plan       : [{ step, detail }] langkah implementasi
+// - rollback   : rencana jika rilis bermasalah
+// - review     : { worked: "yang berhasil", learned: "yang dipelajari" }
 // =====================================================================
 
 export const projects = [
@@ -13,6 +25,9 @@ export const projects = [
     category: "App",
     year: "2026",
     featured: true,
+    changeId: "CHG-PRJ-0003",
+    changeType: "Standard",
+    risk: "Rendah",
     thumbnail: "/images/projects/kasir-laundry-cover.webp",
     summary:
       "Aplikasi kasir untuk usaha laundry: pencatatan order, status cucian, dan laporan harian.",
@@ -46,6 +61,9 @@ export const projects = [
     category: "Website",
     year: "2026",
     featured: true,
+    changeId: "CHG-PRJ-0004",
+    changeType: "Normal",
+    risk: "Sedang",
     thumbnail: "/images/projects/sipakarla-cover.webp",
     summary:
       "Sistem informasi pelaporan dan pemantauan titik api kebakaran hutan dan lahan secara real-time.",
@@ -62,6 +80,42 @@ export const projects = [
       "Laporan eksekutif PDF berdasarkan periode dan kategori",
       "Hak akses per peran: Masyarakat, Admin, Petugas Lapangan, Pimpinan",
     ],
+    // CEK: isi di bawah ini masih DRAF dari Claude. Ganti dengan pengalaman aslimu sebelum dipublikasikan.
+    outOfScope: [
+      "Aplikasi mobile native (Android/iOS)",
+      "Data hotspot otomatis dari satelit",
+      "Notifikasi SMS ke petugas",
+    ],
+    risks: [
+      {
+        risk: "Koordinat dari HP tidak akurat",
+        level: "Tinggi",
+        mitigation: "Pelapor bisa menggeser titik di peta, dan foto wajib dilampirkan",
+      },
+      {
+        risk: "Laporan palsu atau ganda",
+        level: "Sedang",
+        mitigation: "Laporan baru tampil di peta setelah diverifikasi admin",
+      },
+      {
+        risk: "Data antarperan tercampur",
+        level: "Rendah",
+        mitigation: "Middleware hak akses di setiap endpoint Laravel",
+      },
+    ],
+    plan: [
+      { step: "Analisis kebutuhan", detail: "alur kerja 4 peran dan data laporan" },
+      { step: "Database dan REST API", detail: "Laravel 12, MySQL" },
+      { step: "Antarmuka dan peta", detail: "React, Vite, Tailwind CSS, Leaflet" },
+      { step: "Pengujian per peran", detail: "skenario lapor, verifikasi, tindak lanjut" },
+      { step: "Go-live", detail: "rilis dan serah terima" },
+    ],
+    rollback:
+      "Database dicadangkan sebelum setiap migrasi. Jika rilis bermasalah, aplikasi dikembalikan ke versi sebelumnya dan cadangan dipulihkan, sehingga laporan yang sudah masuk tidak hilang.",
+    review: {
+      worked: "Satu alur dari laporan masyarakat sampai tindak lanjut petugas, terlihat di satu peta.",
+      learned: "Hak akses per peran lebih mudah dirancang sejak awal daripada ditambahkan belakangan.",
+    },
     gallery: [
       {
         src: "/images/projects/sipakarla-login.webp",
@@ -98,6 +152,9 @@ export const projects = [
     category: "Web App",
     year: "2024",
     featured: false,
+    changeId: "CHG-PRJ-0002",
+    changeType: "Normal",
+    risk: "Sedang",
     thumbnail: "/images/projects/surat-cover.webp",
     summary:
       "Aplikasi pengelolaan surat masuk, surat keluar, disposisi, dan buku agenda untuk Subbag Perencanaan Dinas Perkebunan.",
@@ -144,6 +201,9 @@ export const projects = [
     category: "Website",
     year: "2023",
     featured: true,
+    changeId: "CHG-PRJ-0001",
+    changeType: "Standard",
+    risk: "Rendah",
     thumbnail: "/images/projects/compro-cover.webp",
     summary:
       "Website company profile untuk kontraktor desain dan konstruksi di Palembang: menara, kubah, interior, GRC, dan kaligrafi.",
@@ -175,5 +235,12 @@ export const projects = [
 ];
 
 export const getProjectBySlug = (slug) => projects.find((p) => p.slug === slug)
+
+/** Proyek sebelum & sesudahnya menurut nomor change (untuk navigasi di halaman detail). */
+export function adjacentProjects(slug) {
+  const ordered = [...projects].sort((a, b) => String(a.changeId ?? a.year).localeCompare(String(b.changeId ?? b.year)))
+  const i = ordered.findIndex((p) => p.slug === slug)
+  return { prev: ordered[i - 1] ?? null, next: ordered[i + 1] ?? null }
+}
 export const featuredProjects = (limit = 3) => projects.filter((p) => p.featured).slice(0, limit)
 export const projectCategories = () => [...new Set(projects.map((p) => p.category))]

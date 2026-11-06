@@ -19,6 +19,7 @@ export const apiBaseUrl = trimSlash(import.meta.env.VITE_API_URL || 'http://loca
 export const navigation = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
+  { to: '/layanan', label: 'Layanan' },
   { to: '/projects', label: 'Projects' },
   { to: '/blog', label: 'Blog' },
   { to: '/contact', label: 'Contact' },
